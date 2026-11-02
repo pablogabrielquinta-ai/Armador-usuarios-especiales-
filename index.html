@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Usuarios Especiales - DPEC</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0f2b52">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Usuarios Esp.">
+<style>
+  :root {
+    --bg: #121212;
+    --bg-card: #1e1e1e;
+    --bg-card2: #262626;
+    --amber: #ffb300;
+    --amber-dark: #cc8f00;
+    --green: #4caf50;
+    --red: #e53935;
+    --blue: #42a5f5;
+    --gray: #2f2f2f;
+    --text: #f0f0f0;
+    --text-dim: #9a9a9a;
+    --border: #333;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    padding-bottom: 40px;
+  }
+  body{background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzNjAiIGhlaWdodD0iMzYwIiB2aWV3Qm94PSIwIDAgMzYwIDM2MCI+PGcgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjNWI3ZmI1IiBzdHJva2Utb3BhY2l0eT0iMC4xNiIgc3Ryb2tlLXdpZHRoPSIyIj4KPHBhdGggZD0iTTAgNjBIMzYwTTAgMTUwSDM2ME0wIDI0MEgzNjBNMCAzMzBIMzYwIi8+PHBhdGggZD0iTTUwIDBWMzYwTTE0MCAwVjM2ME0yMzAgMFYzNjBNMzIwIDBWMzYwIi8+PC9nPgo8ZyBmaWxsPSJub25lIiBzdHJva2U9IiM1YjdmYjUiIHN0cm9rZS1vcGFjaXR5PSIwLjEwIiBzdHJva2Utd2lkdGg9IjEiPjxwYXRoIGQ9Ik0wIDEwNUgzNjBNMCAxOTVIMzYwTTAgMjg1SDM2ME0wIDE1SDM2MCIvPjxwYXRoIGQ9Ik05NSAwVjM2ME0xODUgMFYzNjBNMjc1IDBWMzYwTTUgMFYzNjAiLz48L2c+CjxwYXRoIGQ9Ik0tMTAgMzAwIEM4MCAyNTAgMTIwIDI2MCAxNzAgMTkwIFMyNzAgMTEwIDM3MCA2MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZiMzAwIiBzdHJva2Utb3BhY2l0eT0iMC4yMiIgc3Ryb2tlLXdpZHRoPSI1IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1kYXNoYXJyYXk9IjEgMTMiLz4KPGNpcmNsZSBjeD0iMTcwIiBjeT0iMTkwIiByPSI1IiBmaWxsPSIjZmZiMzAwIiBmaWxsLW9wYWNpdHk9IjAuMjUiLz48L3N2Zz4=') ,linear-gradient(180deg,#0b0b0b 0%,#0f2b52 160%) fixed !important;background-size:360px 360px,auto !important;}
+  header {
+    background: linear-gradient(135deg, #1a1a1a, #222);
+    border-bottom: 3px solid var(--amber);
+    padding: 14px 16px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  header .back {
+    background: none; border: none; color: var(--amber);
+    font-size: 20px; padding: 4px 6px 4px 0; display: none;
+  }
+  header .titles { flex: 1; text-align: center; }
+  header h1 { margin: 0; font-size: 17px; color: var(--amber); letter-spacing: 0.3px; }
+  header .sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+  .spacer24 { width: 24px; }
+  .container { max-width: 560px; margin: 0 auto; padding: 14px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  label { display: block; font-size: 13px; color: var(--text-dim); margin-bottom: 6px; margin-top: 12px; }
+  label:first-child { margin-top: 0; }
+  input[type="text"], input[type="number"], input[type="date"], select {
+    width: 100%;
+    background: var(--bg-card2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+  }
+  input:focus, select:focus { outline: none; border-color: var(--amber); }
+  .btn-main {
+    width: 100%; background: var(--amber); color: #1a1a1a; border: none;
+    padding: 14px; border-radius: 8px; font-size: 15px; font-weight: bold; margin-top: 14px;
+  }
+  .btn-main:active { background: var(--amber-dark); }
+  .btn-main:disabled { background: var(--gray); color: var(--text-dim); }
+  .btn-row { display: flex; gap: 10px; margin-top: 10px; }
+  .btn-sec {
+    flex: 1; background: var(--bg-card2); color: var(--text); border: 1px solid var(--border);
+    padding: 11px; border-radius: 8px; font-size: 14px;
+  }
+  .btn-sec.green { border-color: var(--green); color: var(--green); }
+  .btn-sec.red { border-color: var(--red); color: var(--red); }
+  .btn-sec.amber { border-color: var(--amber); color: var(--amber); }
+
+  /* Home: lista de rutas */
+  .route-card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .route-card .info { flex: 1; }
+  .route-card .rname { font-size: 16px; font-weight: bold; color: var(--amber); }
+  .route-card .rmeta { font-size: 12px; color: var(--text-dim); margin-top: 3px; }
+  .route-card .rdelete { background: none; border: none; color: var(--red); font-size: 18px; padding: 6px 8px; }
+  .firma-pie { margin: 26px 0 8px; text-align: center; font-size: 11px; color: var(--text-dim); opacity: 0.75; line-height: 1.6; }
+  .firma-pie span { display: block; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: var(--text); opacity: 0.8; }
+  .btn-lect { width: 100%; margin-bottom: 12px; text-align: left; display: flex; justify-content: space-between; align-items: center; }
+  .btn-lect b { color: var(--amber); }
+  .btn-lect span { color: var(--text-dim); font-size: 12px; }
+  .nombre-modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.88); z-index: 900; display: flex; align-items: center; justify-content: center; padding: 18px; }
+  .nombre-box { width: 100%; max-width: 420px; background: var(--bg-card); border: 2px solid var(--amber); border-radius: 14px; padding: 18px; }
+  .nombre-box h2 { margin: 0 0 6px; font-size: 18px; color: var(--amber); }
+  .nombre-box p { margin: 0 0 12px; font-size: 13px; color: var(--text-dim); }
+  .firma-pie .ver { display: block; margin-top: 6px; font-size: 11px; font-weight: 400; letter-spacing: 0; color: var(--text-dim); opacity: 0.8; }
+  .scan-btn {
+    background: var(--bg-card2); border: 1px solid var(--amber); color: var(--amber);
+    border-radius: 8px; padding: 12px 14px; font-size: 14px; font-weight: bold; white-space: nowrap;
+  }
+  .scan-modal {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #000;
+    z-index: 110; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 16px; gap: 14px;
+  }
+  .scan-modal video { width: 100%; max-width: 480px; max-height: 65vh; border-radius: 10px; background: #111; }
+  .scan-hint { color: var(--amber); font-size: 15px; font-weight: bold; text-align: center; }
+  .scan-wrap { position: relative; width: 100%; max-width: 480px; }
+  .scan-wrap video { width: 100%; max-height: 52vh; border-radius: 10px; background: #111; display: block; }
+  .scan-wrap .frame { position: absolute; left: 10%; right: 10%; top: 30%; bottom: 30%; border: 2px solid rgba(255,179,0,0.85); border-radius: 10px; pointer-events: none; }
+  .scan-torch { position: absolute; right: 10px; top: 10px; width: 48px; height: 48px; border-radius: 50%; border: none; background: rgba(0,0,0,0.6); color: #fff; font-size: 22px; }
+  .scan-torch.on { background: var(--amber); color: #1a1a1a; }
+  .scan-zoom { width: 100%; max-width: 480px; display: flex; align-items: center; gap: 10px; color: var(--text-dim); font-size: 13px; }
+  .scan-zoom input { flex: 1; accent-color: var(--amber); height: 30px; }
+  .scan-res { width: 100%; max-width: 480px; background: var(--bg-card); border: 2px solid var(--amber); border-radius: 14px; padding: 14px; text-align: center; }
+  .scan-res .lbl { font-size: 12px; color: var(--text-dim); }
+  .scan-res .num { font-size: 34px; font-weight: 800; color: var(--amber); letter-spacing: 1px; word-break: break-all; margin: 4px 0 8px; }
+  .scan-res .warn { background: rgba(229,57,53,0.15); border: 1px solid var(--red); color: #ff8a80; border-radius: 8px; padding: 8px; font-size: 13px; margin-bottom: 8px; }
+  .scan-res .btn-row .btn-sec { padding: 15px; font-size: 16px; }
+  .lock { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #0b0b0b; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 22px; overflow-y: auto; }
+  .lock-box { width: 100%; max-width: 420px; text-align: center; }
+  .lock-ic { font-size: 64px; margin-bottom: 8px; }
+  .lock-box h2 { margin: 0 0 10px; color: var(--amber); font-size: 22px; }
+  .lock-box p { margin: 0 0 22px; color: var(--text); font-size: 15px; line-height: 1.5; }
+  .lock-box .nota { color: var(--text-dim); font-size: 12px; margin-top: 18px; }
+  .empty-state { text-align: center; color: var(--text-dim); padding: 30px 10px; font-size: 13px; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .tab-btn {
+    flex: 1; background: var(--bg-card2); border: 1px solid var(--border); color: var(--text-dim);
+    padding: 10px; border-radius: 8px; font-size: 14px; font-weight: bold;
+  }
+  .tab-btn.active { background: var(--amber); color: #1a1a1a; border-color: var(--amber); }
+
+  /* Calle card */
+  .calle-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .calle-card.active { border-color: var(--amber); }
+  .calle-head {
+    padding: 12px 16px; display: flex; justify-content: space-between; align-items: center;
+    background: var(--bg-card2);
+  }
+  .calle-head .cname { font-size: 15px; font-weight: bold; }
+  .calle-head .ccount { font-size: 12px; color: var(--text-dim); }
+  .calle-head .reabrir { background: none; border: 1px solid var(--blue); color: var(--blue); border-radius: 6px; padding: 3px 9px; font-size: 12px; }
+  .calle-body { padding: 10px 14px; }
+  .med-row {
+    display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .med-row:last-child { border-bottom: none; }
+  .med-row .med-orden { font-size: 12px; color: var(--text-dim); width: 30px; flex-shrink: 0; }
+  .med-row .med-info { flex: 1; font-size: 14px; }
+  .med-row .med-info b { color: var(--amber); }
+  .med-row .med-actions { display: flex; gap: 4px; }
+  .med-row button {
+    background: var(--gray); border: none; color: var(--text); width: 30px; height: 30px;
+    border-radius: 6px; font-size: 13px;
+  }
+  .med-row button:disabled { opacity: 0.3; }
+  .med-row button.del { color: var(--red); }
+  .med-row button.foto { color: var(--text-dim); }
+  .med-row button.edit { color: var(--amber); }
+  .med-row .med-actions { gap: 3px; }
+  .edit-aviso { background: rgba(255,179,0,0.12); border: 1px solid var(--amber); color: var(--amber); border-radius: 8px; padding: 8px; font-size: 12px; margin-top: 10px; }
+  .med-row button.foto.tiene { color: var(--green); }
+
+  .foto-modal {
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.92);
+    z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px;
+  }
+  .foto-modal img { max-width: 100%; max-height: 75vh; border-radius: 8px; }
+  .foto-modal .btn-row { width: 100%; max-width: 400px; }
+
+
+  /* Mapa */
+  .map-card { padding: 0; overflow: hidden; position: relative; }
+  .map-box { width: 100%; height: 300px; background: #1b2029; position: relative; }
+  .ruta-mapa-box { width: 100%; height: 62vh; min-height: 340px; background: #1b2029; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); margin-bottom: 14px; }
+  .map-empty { position: absolute; left: 0; right: 0; top: 0; bottom: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px 70px 24px 24px; color: var(--text-dim); font-size: 14px; z-index: 5; pointer-events: none; }
+  .map-legend { position: absolute; left: 8px; bottom: 8px; z-index: 10; background: rgba(18,18,18,0.88); border: 1px solid var(--border); border-radius: 10px; padding: 6px 10px; font-size: 12px; max-height: 55%; overflow-y: auto; }
+  .map-legend div { display: flex; align-items: center; gap: 7px; padding: 2px 0; white-space: nowrap; }
+  .map-legend i { width: 11px; height: 11px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
+  .map-legend .sg { color: var(--text-dim); }
+  .map-note { position: absolute; left: 8px; top: 8px; z-index: 10; background: rgba(18,18,18,0.88); border: 1px solid var(--red); color: #ff8a80; font-size: 12px; border-radius: 8px; padding: 5px 9px; max-width: 70%; }
+  .map-attr { position: absolute; right: 4px; bottom: 2px; z-index: 10; font-size: 10px; color: #ddd; background: rgba(0,0,0,0.55); padding: 1px 5px; border-radius: 3px; display: none; }
+  .map-ctrl { position: absolute; right: 8px; top: 8px; z-index: 10; display: flex; flex-direction: column; gap: 4px; }
+  .map-ctrl button { width: 42px; height: 42px; border: 1px solid var(--border); background: rgba(30,30,30,0.95); color: var(--text); font-size: 22px; font-weight: bold; border-radius: 8px; padding: 0; }
+  .map-ctrl button:active { background: var(--amber); color: #1a1a1a; }
+  .route-card .circ { width: 34px; height: 34px; border-radius: 50%; color: #101010; font-weight: 800; font-size: 15px; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0; }
+
+  #printArea { display: none; }
+  @media print {
+    body * { visibility: hidden; }
+    #printArea, #printArea * { visibility: visible; }
+    #printArea { display: block; position: absolute; top: 0; left: 0; width: 100%; }
+    .print-title { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    .print-sub { font-size: 12px; color: #555; margin-bottom: 16px; }
+    .print-calle { font-size: 15px; font-weight: bold; margin-top: 18px; border-bottom: 1px solid #999; padding-bottom: 4px; }
+    .print-med { margin: 10px 0; page-break-inside: avoid; }
+    .print-med .print-med-title { font-size: 13px; font-weight: bold; }
+    .print-med .print-med-sub { font-size: 11px; color: #555; }
+    .print-med img { max-width: 320px; max-height: 240px; margin-top: 4px; border: 1px solid #ccc; }
+  }
+
+  .add-form { display: flex; gap: 8px; margin-top: 10px; align-items: flex-end; }
+  .add-form .fld { flex: 1; }
+  .add-form .fld label { margin: 0 0 4px 0; font-size: 11px; }
+  .add-form button.add-btn {
+    background: var(--green); color: #0d0d0d; border: none; border-radius: 8px;
+    padding: 12px 16px; font-weight: bold; font-size: 14px; white-space: nowrap;
+  }
+
+  .inline-form { background: var(--bg-card2); border: 1px dashed var(--border); border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+
+  /* Recorrido */
+  .recorrido-item { display: flex; gap: 12px; padding: 6px 0; }
+  .rline { display: flex; flex-direction: column; align-items: center; width: 20px; flex-shrink: 0; }
+  .rdot { width: 12px; height: 12px; border-radius: 50%; background: var(--gray); flex-shrink: 0; }
+  .rdot.inicio { background: var(--blue); box-shadow: 0 0 6px var(--blue); }
+  .rdot.fin { background: var(--red); box-shadow: 0 0 6px var(--red); }
+  .rconn { width: 2px; flex: 1; background: var(--border); min-height: 16px; }
+  .rinfo { flex: 1; padding-bottom: 6px; }
+  .rinfo .rtag { font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; text-transform: uppercase; }
+  .rinfo .rmain { font-size: 14px; }
+  .rinfo .rmain b { color: var(--amber); }
+
+  .toast {
+    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--green); color: #0d0d0d; padding: 10px 20px; border-radius: 20px;
+    font-size: 14px; font-weight: bold; opacity: 0; pointer-events: none; transition: opacity 0.25s; z-index: 50;
+  }
+  .toast.show { opacity: 1; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back" id="btnBack">&larr;</button>
+  <div class="titles">
+    <h1 id="headerTitle"><img src="icon-192.png" alt="" style="width:26px;height:26px;border-radius:6px;vertical-align:-6px;margin-right:6px;">Usuarios Especiales</h1>
+    <div class="sub" id="headerSub">DPEC - Prefacturaci&oacute;n</div>
+  </div>
+  <div class="spacer24"></div>
+</header>
+
+<div class="container">
+
+  <!-- ===== PANTALLA HOME ===== -->
+  <div id="screenHome">
+
+    <button class="btn-sec btn-lect" id="btnLecturista"><div>&#128100; Lecturista: <b id="lecturistaNombre">-</b></div><span>cambiar</span></button>
+
+    <div class="card" id="cardNuevaRuta">
+      <button class="btn-main" id="btnMostrarNuevaRuta">&#10133; NUEVA ZONA / BARRIO</button>
+      <div id="formNuevaRuta" class="hidden">
+        <label for="numRuta">Zona o barrio</label>
+        <input type="text" id="numRuta" placeholder="Ej: Barrio Cremonte" autocomplete="off">
+        <div style="display:none;"><label for="fechaRuta">Fecha</label>
+        <input type="date" id="fechaRuta"></div>
+        <div class="btn-row">
+          <button class="btn-sec" id="btnCancelarNuevaRuta">Cancelar</button>
+          <button class="btn-sec green" id="btnCrearRuta">Crear ruta</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card map-card" id="mapCardHome"><div class="map-box" id="mapaHome"></div></div>
+
+    <div id="listaRutas"></div>
+
+    <div class="btn-row" id="homeExportRow" style="display:none;">
+      <button class="btn-sec amber" id="btnExportTodas">&#128190; Exportar todas a Excel</button>
+    </div>
+  </div>
+
+  <!-- ===== PANTALLA RUTA ===== -->
+  <div id="screenRoute" class="hidden">
+
+    <div class="tabs">
+      <button class="tab-btn active" id="tabArmado">Armado</button>
+      <button class="tab-btn" id="tabRecorrido">Recorrido</button>
+      <button class="tab-btn" id="tabMapa">Mapa</button>
+    </div>
+
+    <div id="viewArmado">
+      <div id="callesContainer"></div>
+
+      <div id="formSiguienteCalle" class="inline-form hidden">
+        <label for="nombreCalle">Calle o barrio</label>
+        <input type="text" id="nombreCalle" placeholder="Ej: Belgrano o Barrio Cremonte">
+        <div class="btn-row">
+          <button class="btn-sec" id="btnCancelarCalle">Cancelar</button>
+          <button class="btn-sec green" id="btnIniciarCalle">Iniciar calle</button>
+        </div>
+      </div>
+
+      <button class="btn-main" id="btnSiguienteCalle">&#10133; SIGUIENTE CALLE / BARRIO</button>
+    </div>
+
+    <div id="viewRecorrido" class="hidden">
+      <div class="card" id="recorridoContainer"></div>
+    </div>
+
+    <div id="viewMapa" class="hidden">
+      <div class="ruta-mapa-box" id="mapaRuta"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-sec green" id="btnGuardarRuta">&#128190; Guardar recorrido</button>
+      <button class="btn-sec amber" id="btnExportRuta">&#128190; Exportar a Excel</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec green" id="btnShareExcel">&#128228; Compartir Excel</button>
+      <button class="btn-sec green" id="btnShareFotos">&#128228; Compartir con fotos</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn-sec" id="btnExportPdf">&#128196; Exportar PDF (con fotos)</button>
+      <button class="btn-sec red" id="btnEliminarRuta">Eliminar ruta</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="firma-pie"><span>&lt;&nbsp;PQG&nbsp;&gt;</span>Desarrollado por Pablo Gabriel Quintana Godoy<span class="ver" id="verApp"></span></div>
+
+<div class="scan-modal hidden" id="scanModal">
+  <div class="scan-hint" id="scanHint"><span id="scanHintTxt">Apunt&aacute; al c&oacute;digo de barras del medidor</span></div>
+  <div class="scan-wrap">
+    <video id="scanVideo" playsinline muted autoplay></video>
+    <div class="frame"></div>
+    <button class="scan-torch hidden" id="btnTorch" aria-label="Linterna">&#128294;</button>
+  </div>
+  <div class="scan-zoom hidden" id="scanZoomBox"><span>&#128269;</span><input type="range" id="scanZoom" min="1" max="2" step="0.1" value="1"></div>
+  <div class="scan-res hidden" id="scanResultado">
+    <div class="lbl" id="scanResLbl">N&uacute;mero le&iacute;do</div>
+    <div class="num" id="scanResNum"></div>
+    <div class="warn hidden" id="scanResWarn"></div>
+    <div class="btn-row">
+      <button class="btn-sec" id="btnScanOtra">&#8635; Repetir</button>
+      <button class="btn-sec green" id="btnScanUsar">&#10003; Usar</button>
+    </div>
+  </div>
+  <div class="btn-row" id="scanBotones" style="width:100%;max-width:400px;">
+    <button class="btn-sec" id="btnCerrarScan">Cancelar</button>
+  </div>
+</div>
+
+<div class="nombre-modal hidden" id="modalPunto">
+  <div class="nombre-box">
+    <h3 id="ptTitulo" style="margin:0 0 10px;color:var(--amber);"></h3>
+    <div id="ptDatos" style="font-size:15px;line-height:1.7;"></div>
+    <div class="btn-row" style="margin-top:14px;">
+      <button class="btn-sec amber" id="btnPtMapa">&#128205; C&oacute;mo llegar</button>
+      <button class="btn-sec" id="btnPtFoto">&#128247; Ver foto</button>
+    </div>
+    <button class="btn-sec" id="btnPtCerrar" style="width:100%;margin-top:10px;">Cerrar</button>
+  </div>
+</div>
+
+<div class="lock hidden" id="lockScreen">
+  <div class="lock-box">
+    <div class="lock-ic">&#128274;</div>
+    <h2 id="lockTitulo">Aplicaci&oacute;n desactivada</h2>
+    <p id="lockMsg"></p>
+    <button class="btn-main" id="btnLockExportar">&#128190; Exportar lo que cargu&eacute; (Excel)</button>
+    <button class="btn-sec" id="btnLockReintentar" style="width:100%;margin-top:10px;">&#8635; Reintentar</button>
+    <div class="nota">Lo que ya cargaste sigue guardado en este celular.</div>
+  </div>
+</div>
+
+<div class="nombre-modal hidden" id="modalNombre">
+  <div class="nombre-box">
+    <h2>&#128100; Nombre del lecturista</h2>
+    <p id="nombreAyuda">Escrib&iacute; tu nombre y apellido. Se guarda en este celular y sale en el Excel y en las fotos.</p>
+    <input type="text" id="inpNombre" placeholder="Ej: Juan P&eacute;rez" autocomplete="off">
+    <div class="btn-row">
+      <button class="btn-sec hidden" id="btnNombreCancelar">Cancelar</button>
+      <button class="btn-sec green" id="btnNombreGuardar">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">Guardado &#10003;</div>
+
+<input type="file" accept="image/*" capture="environment" id="inpFotoFile" class="hidden">
+
+<div class="foto-modal hidden" id="fotoModal">
+  <img id="fotoModalImg" alt="Foto del medidor">
+  <div class="btn-row">
+    <button class="btn-sec" id="btnCerrarFoto">Cerrar</button>
+    <button class="btn-sec red" id="btnEliminarFoto">Eliminar foto</button>
+  </div>
+</div>
+
+<div class="nombre-modal hidden" id="modalEditar">
+  <div class="nombre-box">
+    <h2>&#9999;&#65039; Corregir medidor</h2>
+    <p id="editInfo"></p>
+    <label for="editIc">IC / N&deg; de usuario</label>
+    <input type="text" inputmode="numeric" id="editIc" autocomplete="off">
+    <label for="editNum">N&deg; Medidor</label>
+    <input type="text" inputmode="numeric" id="editNum" autocomplete="off">
+    <label for="editAlt">N.&deg; de m&oacute;dulo</label>
+    <input type="text" id="editAlt" autocomplete="off" autocapitalize="characters">
+    <div class="edit-aviso hidden" id="editFotoAviso">Este medidor ya tiene foto. La foto conserva el n&uacute;mero anterior en el sello; si quer&eacute;s, sacala de nuevo despu&eacute;s de corregir.</div>
+    <div class="btn-row">
+      <button class="btn-sec" id="btnEditCancelar">Cancelar</button>
+      <button class="btn-sec green" id="btnEditGuardar">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<div id="printArea"></div>
+
+<script>
+(function () {
+  var APP_VERSION = '2';   // mantener igual que CACHE_NAME en sw.js
+  var STORAGE_KEY = 'dpec_ue_rutas_v1';
+  var NOMBRE_KEY = 'dpec_ue_lecturista';
+  function getLecturista() { try { return (localStorage.getItem(NOMBRE_KEY) || '').trim(); } catch (e) { return ''; } }
+  function setLecturista(n) { try { localStorage.setItem(NOMBRE_KEY, String(n || '').trim()); } catch (e) {} }
+  function limpioCsv(t) { return String(t == null ? '' : t).replace(/[;\r\n]+/g, ' ').trim(); }
+  function lecturistaDe(route) { return (route && route.lecturista) ? route.lecturista : getLecturista(); }
+  var SESSION_KEY = 'dpec_ue_rutas_session_v1';
+  var currentGps = null;
+  var currentRouteId = null;
+  var currentTab = 'armado';
+
+  function saveSession() {
+    if (currentRouteId) {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({ routeId: currentRouteId, tab: currentTab }));
+    } else {
+      localStorage.removeItem(SESSION_KEY);
+    }
+  }
+  function loadSession() {
+    try {
+      var raw = localStorage.getItem(SESSION_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  // ---------- persistencia ----------
+  function loadRoutes() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveRoutes(routes) { localStorage.setItem(STORAGE_KEY, JSON.stringify(routes)); }
+  function getRoute(id) {
+    var routes = loadRoutes();
+    for (var i = 0; i < routes.length; i++) { if (routes[i].id === id) return routes[i]; }
+    return null;
+  }
+  function updateRoute(route) {
+    var routes = loadRoutes();
+    for (var i = 0; i < routes.length; i++) {
+      if (routes[i].id === route.id) { routes[i] = route; break; }
+    }
+    saveRoutes(routes);
+  }
+
+  // ---------- fotos (IndexedDB, separado del localStorage) ----------
+  var dbPromise = null;
+  function openDb() {
+    if (dbPromise) return dbPromise;
+    dbPromise = new Promise(function (resolve, reject) {
+      var req = indexedDB.open('dpec_ue_rutas_fotos', 1);
+      req.onupgradeneeded = function (e) {
+        var db = e.target.result;
+        if (!db.objectStoreNames.contains('fotos')) db.createObjectStore('fotos');
+      };
+      req.onsuccess = function (e) { resolve(e.target.result); };
+      req.onerror = function (e) { reject(e); };
+    });
+    return dbPromise;
+  }
+  function guardarFoto(id, dataUrl) {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('fotos', 'readwrite');
+        tx.objectStore('fotos').put(dataUrl, id);
+        tx.oncomplete = function () { resolve(); };
+        tx.onerror = function (e) { reject(e); };
+      });
+    });
+  }
+  function obtenerFoto(id) {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('fotos', 'readonly');
+        var req = tx.objectStore('fotos').get(id);
+        req.onsuccess = function () { resolve(req.result); };
+        req.onerror = function (e) { reject(e); };
+      });
+    });
+  }
+  function eliminarFoto(id) {
+    return openDb().then(function (db) {
+      return new Promise(function (resolve, reject) {
+        var tx = db.transaction('fotos', 'readwrite');
+        tx.objectStore('fotos').delete(id);
+        tx.oncomplete = function () { resolve(); };
+        tx.onerror = function (e) { reject(e); };
+      });
+    }).catch(function () {});
+  }
+  // Sello (marca de agua) con los datos del medidor, escrito sobre la foto
+  function dibujarSello(ctx, w, h, lineas) {
+    if (!lineas || !lineas.length) return;
+    var fs = Math.max(13, Math.round(w / 30));
+    var pad = Math.round(fs * 0.5);
+    var alto = lineas.length * Math.round(fs * 1.28) + pad * 2 - Math.round(fs * 0.2);
+    ctx.fillStyle = 'rgba(0,0,0,0.58)';
+    ctx.fillRect(0, h - alto, w, alto);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'top';
+    for (var i = 0; i < lineas.length; i++) {
+      ctx.font = (i === 0 ? 'bold ' : '') + fs + 'px sans-serif';
+      ctx.fillStyle = i === 0 ? '#ffd54f' : '#ffffff';
+      ctx.fillText(lineas[i], pad, h - alto + pad + i * Math.round(fs * 1.28), w - pad * 2);
+    }
+  }
+  // Marca de agua PQG (monograma) en la esquina superior derecha de la foto
+  var imgFirma = new Image();
+  imgFirma.src = 'data:image/png;base64,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';
+  function dibujarFirmaFoto(ctx, w, h) {
+    if (!imgFirma.complete || !imgFirma.naturalWidth) return;
+    var ancho = Math.round(w * 0.085);
+    var alto = Math.round(ancho * imgFirma.naturalHeight / imgFirma.naturalWidth);
+    var mg = Math.round(w * 0.03);
+    ctx.save();
+    ctx.globalAlpha = 0.34;
+    ctx.shadowColor = 'rgba(0,0,0,0.5)';
+    ctx.shadowBlur = Math.max(2, Math.round(ancho * 0.03));
+    ctx.drawImage(imgFirma, w - mg - ancho, mg, ancho, alto);
+    ctx.restore();
+  }
+  function datosSello(route, medId) {
+    for (var i = 0; i < route.calles.length; i++) {
+      var meds = route.calles[i].medidores;
+      for (var j = 0; j < meds.length; j++) {
+        if (meds[j].id !== medId) continue;
+        var m = meds[j], d = new Date();
+        var la = parseFloat(m.lat), lo = parseFloat(m.lon);
+        var gps = (!isNaN(la) && !isNaN(lo)) ? la.toFixed(5) + ', ' + lo.toFixed(5) : 'sin ubicaci\u00f3n';
+        var zonaSello = route.zona || route.calles[i].nombre;
+        return [
+          String(zonaSello).toUpperCase(),
+          pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear() + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes())
+        ];
+      }
+    }
+    return null;
+  }
+  function comprimirFoto(file, callback, lineas) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      var img = new Image();
+      img.onload = function () {
+        var maxDim = 700;
+        var w = img.width, h = img.height;
+        if (w > h && w > maxDim) { h = Math.round(h * maxDim / w); w = maxDim; }
+        else if (h > maxDim) { w = Math.round(w * maxDim / h); h = maxDim; }
+        var canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        var cx = canvas.getContext('2d');
+        cx.drawImage(img, 0, 0, w, h);
+        dibujarSello(cx, w, h, lineas);
+        dibujarFirmaFoto(cx, w, h);
+        callback(canvas.toDataURL('image/jpeg', 0.5));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  function findMedidorById(route, medId) {
+    for (var i = 0; i < route.calles.length; i++) {
+      var meds = route.calles[i].medidores;
+      for (var j = 0; j < meds.length; j++) { if (meds[j].id === medId) return meds[j]; }
+    }
+    return null;
+  }
+
+  function pad(n) { return n < 10 ? '0' + n : '' + n; }
+  function pad3(n) { var s = '' + n; while (s.length < 3) s = '0' + s; return s; }
+  function uid(prefix) { return prefix + '_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5); }
+  function todayISO() {
+    var d = new Date();
+    return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+  }
+  function fmtFecha(iso) {
+    if (!iso) return '';
+    var p = iso.split('-');
+    return p[2] + '/' + p[1] + '/' + p[0];
+  }
+  function totalMedidores(route) {
+    var t = 0;
+    for (var i = 0; i < route.calles.length; i++) t += route.calles[i].medidores.length;
+    return t;
+  }
+  function escapeHtml(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+  function showToast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show';
+    setTimeout(function () { t.className = 'toast'; }, 1400);
+  }
+
+  // ---------- GPS silencioso ----------
+  function startGpsWatch() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.watchPosition(
+      function (pos) {
+        currentGps = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: Math.round(pos.coords.accuracy), t: Date.now() };
+      },
+      function () { /* silencioso: si falla, se reintenta al agregar cada medidor */ },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 8000 }
+    );
+  }
+
+  // Devuelve una ubicaci\u00f3n actual: usa la del seguimiento si tiene menos de 15 s,
+  // si no pide una nueva (hasta 7 s) y si no llega usa la \u00faltima que tenga.
+  var GPS_FRESCO_MS = 15000;
+  function getGps(callback) {
+    if (currentGps && (Date.now() - currentGps.t) < GPS_FRESCO_MS) { callback(currentGps); return; }
+    if (!navigator.geolocation) { callback(currentGps); return; }
+    var terminado = false;
+    function fin(g) { if (terminado) return; terminado = true; callback(g); }
+    var timer = setTimeout(function () { fin(currentGps); }, 7000);
+    navigator.geolocation.getCurrentPosition(
+      function (pos) {
+        clearTimeout(timer);
+        currentGps = { lat: pos.coords.latitude, lon: pos.coords.longitude, acc: Math.round(pos.coords.accuracy), t: Date.now() };
+        fin(currentGps);
+      },
+      function () { clearTimeout(timer); fin(currentGps); },
+      { enableHighAccuracy: true, timeout: 6000, maximumAge: 0 }
+    );
+  }
+
+  // ================= HOME =================
+  // ================= MAPA (propio, sin librerias; funciona sin Internet) =================
+  // Sin Internet: puntos y lineas de las rutas sobre fondo liso.
+  // Con Internet: se agrega el mapa de calles (OpenStreetMap) de fondo.
+  var COLORES = ['#4caf50', '#42a5f5', '#ab47bc', '#ffb300', '#ef5350', '#26c6da', '#ec407a', '#7e8ce0', '#9ccc65', '#ff7043', '#26a69a', '#d4e157'];
+
+  function puntosDeRuta(route) {
+    var pts = [], orden = 0, sin = 0;
+    for (var i = 0; i < route.calles.length; i++) {
+      for (var j = 0; j < route.calles[i].medidores.length; j++) {
+        orden++;
+        var m = route.calles[i].medidores[j];
+        var la = parseFloat(m.lat), lo = parseFloat(m.lon);
+        if (!isNaN(la) && !isNaN(lo)) pts.push({ lat: la, lon: lo, n: orden, med: m.numMedidor, calle: route.calles[i].nombre, ic: m.ic || '', modulo: m.modulo || '', acc: m.acc || '', ts: m.ts || 0, foto: !!m.tieneFoto, id: m.id, zona: route.numero });
+        else sin++;
+      }
+    }
+    return { pts: pts, sin: sin };
+  }
+
+  function compartirImagenMapa(blob, nombre, titulo) {
+    var file = new File([blob], nombre, { type: 'image/png' });
+    if (navigator.canShare && navigator.share && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: titulo, text: titulo }).catch(function (err) {
+        if (err && err.name === 'AbortError') return;
+        alert('No se pudo compartir: ' + (err && err.message ? err.message : err));
+      });
+    } else {
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url; a.download = nombre;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      alert('Este navegador no permite compartir directo. Se descargó la imagen del mapa en Descargas.');
+    }
+  }
+
+  function crearMapa(contenedor, opciones) {
+    var canvas = document.createElement('canvas');
+    canvas.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;display:block;';
+    contenedor.appendChild(canvas);
+    var ctx = canvas.getContext('2d');
+
+    var vacio = document.createElement('div');
+    vacio.className = 'map-empty';
+    vacio.textContent = opciones.textoVacio || 'Todav\u00eda no hay ubicaciones para mostrar.';
+    contenedor.appendChild(vacio);
+
+    var leyenda = null;
+    if (opciones.leyenda) { leyenda = document.createElement('div'); leyenda.className = 'map-legend'; contenedor.appendChild(leyenda); }
+    var nota = document.createElement('div'); nota.className = 'map-note hidden'; contenedor.appendChild(nota);
+    var attr = document.createElement('div'); attr.className = 'map-attr'; attr.textContent = '\u00a9 OpenStreetMap'; contenedor.appendChild(attr);
+
+    var caja = document.createElement('div'); caja.className = 'map-ctrl';
+    function mkBtn(txt, titulo) { var b = document.createElement('button'); b.textContent = txt; b.title = titulo; return b; }
+    var bMas = mkBtn('+', 'Acercar'), bMenos = mkBtn('\u2212', 'Alejar'), bAj = mkBtn('\u25a3', 'Ver todo'), bYo = mkBtn('\u2316', 'Mi ubicaci\u00f3n'), bSh = mkBtn('\uD83D\uDCE4', 'Compartir mapa');
+    bSh.style.fontSize = '18px';
+    caja.appendChild(bMas); caja.appendChild(bMenos); caja.appendChild(bAj); caja.appendChild(bYo); caja.appendChild(bSh);
+    contenedor.appendChild(caja);
+
+    var W = 300, H = 300, dpr = 1;
+    var lat0 = -27.47, lon0 = -58.83, z = 14;
+    var capas = [], pins = [], tiles = {}, nTiles = 0, yo = null, pendiente = false, sinTiles = false;
+
+    function mx(lon, zz) { return (lon + 180) / 360 * 256 * Math.pow(2, zz); }
+    function my(lat, zz) { var s = Math.sin(lat * Math.PI / 180); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * 256 * Math.pow(2, zz); }
+    function lonDe(x, zz) { return x / (256 * Math.pow(2, zz)) * 360 - 180; }
+    function latDe(y, zz) { var n = Math.PI - 2 * Math.PI * y / (256 * Math.pow(2, zz)); return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))); }
+    function aPant(lat, lon) { return { x: W / 2 + (mx(lon, z) - mx(lon0, z)), y: H / 2 + (my(lat, z) - my(lat0, z)) }; }
+    function pedir() {
+      if (pendiente) return;
+      pendiente = true;
+      (window.requestAnimationFrame || function (f) { setTimeout(f, 16); })(function () { pendiente = false; dibujar(); });
+    }
+    function medir() {
+      var w = contenedor.clientWidth, h = contenedor.clientHeight;
+      if (!w || !h) return false;
+      dpr = window.devicePixelRatio || 1; W = w; H = h;
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      return true;
+    }
+
+    function tile(tz, tx, ty) {
+      var key = tz + '/' + tx + '/' + ty, t = tiles[key];
+      if (t) return t;
+      if (nTiles > 250) { tiles = {}; nTiles = 0; }
+      var img = new Image(); t = { img: img, ok: false };
+      img.crossOrigin = 'anonymous';
+      img.onload = function () { t.ok = true; pedir(); };
+      img.src = 'https://tile.openstreetmap.org/' + key + '.png';
+      tiles[key] = t; nTiles++;
+      return t;
+    }
+
+    function fondo() {
+      ctx.fillStyle = '#1b2029'; ctx.fillRect(0, 0, W, H);
+      var conTiles = false;
+      if (!sinTiles) {
+        var tz = Math.max(1, Math.min(19, Math.round(z)));
+        var esc = Math.pow(2, z - tz), cx = mx(lon0, tz), cy = my(lat0, tz);
+        var x0 = cx - (W / 2) / esc, y0 = cy - (H / 2) / esc;
+        var tx0 = Math.floor(x0 / 256), ty0 = Math.floor(y0 / 256);
+        var tx1 = Math.floor((cx + (W / 2) / esc) / 256), ty1 = Math.floor((cy + (H / 2) / esc) / 256);
+        var max = Math.pow(2, tz);
+        if ((tx1 - tx0 + 1) * (ty1 - ty0 + 1) <= 60) {
+          for (var tx = tx0; tx <= tx1; tx++) {
+            for (var ty = ty0; ty <= ty1; ty++) {
+              if (ty < 0 || ty >= max) continue;
+              var t = tile(tz, ((tx % max) + max) % max, ty);
+              if (t.ok) { ctx.drawImage(t.img, (tx * 256 - x0) * esc, (ty * 256 - y0) * esc, 256 * esc + 0.5, 256 * esc + 0.5); conTiles = true; }
+            }
+          }
+          if (conTiles) { ctx.fillStyle = 'rgba(10,14,22,0.35)'; ctx.fillRect(0, 0, W, H); }
+        }
+      }
+      attr.style.display = conTiles ? 'block' : 'none';
+      if (!conTiles) {
+        ctx.strokeStyle = '#262d3a'; ctx.lineWidth = 1;
+        var paso = 60, ox = (W / 2 - mx(lon0, z)) % paso, oy = (H / 2 - my(lat0, z)) % paso;
+        ctx.beginPath();
+        for (var gx = ox; gx < W; gx += paso) { ctx.moveTo(gx, 0); ctx.lineTo(gx, H); }
+        for (var gy = oy; gy < H; gy += paso) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
+        ctx.stroke();
+      }
+    }
+
+    function pin(x, y, r, color, texto, info) {
+      ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fillStyle = color; ctx.fill();
+      ctx.lineWidth = Math.max(2, r / 7); ctx.strokeStyle = '#ffffff'; ctx.stroke();
+      if (texto) {
+        ctx.fillStyle = '#101010'; ctx.font = 'bold ' + Math.round(r * 0.95) + 'px sans-serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(texto, x, y + 1);
+      }
+      if (info) pins.push({ x: x, y: y, r: Math.max(r, 20), info: info });
+    }
+    function flecha(a, b, color) {
+      var dx = b.x - a.x, dy = b.y - a.y;
+      if (Math.sqrt(dx * dx + dy * dy) < 40) return;
+      ctx.save(); ctx.translate((a.x + b.x) / 2, (a.y + b.y) / 2); ctx.rotate(Math.atan2(dy, dx));
+      ctx.beginPath(); ctx.moveTo(7, 0); ctx.lineTo(-5, -5.5); ctx.lineTo(-5, 5.5); ctx.closePath();
+      ctx.fillStyle = color; ctx.fill(); ctx.lineWidth = 1.5; ctx.strokeStyle = '#fff'; ctx.stroke(); ctx.restore();
+    }
+
+    function dibujar() {
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      pins = [];
+      fondo();
+      var i, j, c, ps;
+      ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+      var traz = [];
+      for (i = 0; i < capas.length; i++) {
+        c = capas[i]; ps = [];
+        for (j = 0; j < c.pts.length; j++) ps.push(aPant(c.pts[j].lat, c.pts[j].lon));
+        traz.push(ps);
+        ctx.lineWidth = 7; ctx.strokeStyle = 'rgba(0,0,0,0.55)'; ctx.beginPath();
+        for (j = 0; j < ps.length; j++) { if (j === 0) ctx.moveTo(ps[j].x, ps[j].y); else ctx.lineTo(ps[j].x, ps[j].y); }
+        ctx.stroke();
+        ctx.lineWidth = 3.5; ctx.strokeStyle = c.color; ctx.beginPath();
+        for (j = 0; j < ps.length; j++) { if (j === 0) ctx.moveTo(ps[j].x, ps[j].y); else ctx.lineTo(ps[j].x, ps[j].y); }
+        ctx.stroke();
+        if (c.modo === 'detalle') for (j = 1; j < ps.length; j++) flecha(ps[j - 1], ps[j], c.color);
+      }
+      for (i = 0; i < capas.length; i++) {
+        c = capas[i]; ps = traz[i];
+        if (c.modo === 'resumen') {
+          for (j = 0; j < ps.length; j++) pin(ps[j].x, ps[j].y, 4, c.color, '', null);
+          pin(ps[0].x, ps[0].y, 16, c.color, c.label, { capa: c });
+        } else {
+          var chico = ps.length > 60;
+          for (j = 0; j < ps.length; j++) {
+            var ini = (j === 0), fin = (j === ps.length - 1);
+            var col = ini ? '#4caf50' : (fin ? '#ef5350' : c.color);
+            var r = (ini || fin) ? 15 : (chico ? 8 : 13);
+            pin(ps[j].x, ps[j].y, r, col, (chico && !ini && !fin) ? '' : String(c.pts[j].n), { capa: c, pt: c.pts[j] });
+          }
+        }
+      }
+      if (yo) {
+        var yp = aPant(yo.lat, yo.lon);
+        ctx.beginPath(); ctx.arc(yp.x, yp.y, 15, 0, Math.PI * 2); ctx.fillStyle = 'rgba(66,165,245,0.28)'; ctx.fill();
+        ctx.beginPath(); ctx.arc(yp.x, yp.y, 8, 0, Math.PI * 2); ctx.fillStyle = '#42a5f5'; ctx.fill();
+        ctx.lineWidth = 3; ctx.strokeStyle = '#fff'; ctx.stroke();
+      }
+    }
+
+    function ajustar() {
+      var pts = [], i, j;
+      for (i = 0; i < capas.length; i++) for (j = 0; j < capas[i].pts.length; j++) pts.push(capas[i].pts[j]);
+      if (!pts.length && yo) pts.push(yo);
+      if (!pts.length) { pedir(); return; }
+      var a = 90, b = -90, c0 = 180, d0 = -180;
+      for (i = 0; i < pts.length; i++) {
+        if (pts[i].lat < a) a = pts[i].lat; if (pts[i].lat > b) b = pts[i].lat;
+        if (pts[i].lon < c0) c0 = pts[i].lon; if (pts[i].lon > d0) d0 = pts[i].lon;
+      }
+      var sx = mx(d0, 0) - mx(c0, 0), sy = my(a, 0) - my(b, 0), pad = 100;
+      var zx = sx > 0 ? Math.log((W - pad) / sx) / Math.LN2 : 18;
+      var zy = sy > 0 ? Math.log((H - pad) / sy) / Math.LN2 : 18;
+      z = Math.max(3, Math.min(18, Math.min(zx, zy)));
+      if (sx === 0 && sy === 0) z = 17;
+      lon0 = lonDe((mx(c0, 0) + mx(d0, 0)) / 2, 0); lat0 = latDe((my(a, 0) + my(b, 0)) / 2, 0);
+      pedir();
+    }
+    // ---- exportar el mapa como imagen (con título y marcas) ----
+    function armarImagen(forzarSinTiles) {
+      var info = opciones.infoExport ? opciones.infoExport() : { titulo: '', sub: '' };
+      var esc = 2, banda = 74;
+      var tmp = document.createElement('canvas');
+      tmp.width = Math.round(W * esc); tmp.height = Math.round(H * esc);
+      var ctxMain = ctx, dprMain = dpr, sinMain = sinTiles;
+      ctx = tmp.getContext('2d'); dpr = esc; sinTiles = !!forzarSinTiles;
+      try { dibujar(); } finally { ctx = ctxMain; dpr = dprMain; sinTiles = sinMain; }
+      var conTilesImg = attr.style.display === 'block';
+      var off = document.createElement('canvas');
+      off.width = tmp.width; off.height = tmp.height + banda * esc;
+      var o = off.getContext('2d');
+      o.fillStyle = '#0f2b52'; o.fillRect(0, 0, off.width, banda * esc);
+      o.textBaseline = 'top'; o.textAlign = 'left';
+      o.fillStyle = '#ffffff'; o.font = 'bold ' + (24 * esc) + 'px sans-serif';
+      o.fillText(info.titulo || '', 16 * esc, 12 * esc, off.width - 32 * esc);
+      o.fillStyle = '#b4cdf0'; o.font = (15 * esc) + 'px sans-serif';
+      o.fillText(info.sub || '', 16 * esc, 46 * esc, off.width - 32 * esc);
+      o.drawImage(tmp, 0, banda * esc);
+      // referencias abajo a la izquierda
+      var items = [];
+      if (opciones.leyenda) { for (var i = 0; i < capas.length && i < 12; i++) items.push({ c: capas[i].color, t: capas[i].label + ' = ' + capas[i].nombre }); }
+      else { items.push({ c: '#4caf50', t: 'Inicio' }); items.push({ c: '#ef5350', t: 'Fin' }); items.push({ c: capas.length ? capas[0].color : '#ffb300', t: 'Medidores en orden' }); }
+      if (items.length) {
+        var lh = 22 * esc, pw = 0;
+        o.font = (14 * esc) + 'px sans-serif';
+        for (var k = 0; k < items.length; k++) pw = Math.max(pw, o.measureText(items[k].t).width);
+        var bw = pw + 40 * esc, bh = items.length * lh + 12 * esc;
+        var bx = 10 * esc, by = off.height - bh - 10 * esc - (conTilesImg ? 14 * esc : 0);
+        o.fillStyle = 'rgba(15,28,45,0.85)'; o.fillRect(bx, by, bw, bh);
+        for (var m2 = 0; m2 < items.length; m2++) {
+          o.beginPath(); o.arc(bx + 14 * esc, by + 6 * esc + m2 * lh + lh / 2, 6 * esc, 0, Math.PI * 2); o.fillStyle = items[m2].c; o.fill();
+          o.fillStyle = '#ffffff'; o.textBaseline = 'middle'; o.fillText(items[m2].t, bx + 28 * esc, by + 6 * esc + m2 * lh + lh / 2);
+        }
+      }
+      if (conTilesImg) { o.fillStyle = 'rgba(255,255,255,0.8)'; o.textBaseline = 'alphabetic'; o.textAlign = 'right'; o.font = (11 * esc) + 'px sans-serif'; o.fillText('© OpenStreetMap', off.width - 8 * esc, off.height - 6 * esc); }
+      return off;
+    }
+    function exportar(listo) {
+      if (!capas.length) { listo(null); return; }
+      var blob = null;
+      function terminar(b) { pedir(); listo(b); }
+      try {
+        armarImagen(false).toBlob(function (b) { terminar(b); }, 'image/png');
+      } catch (e) {
+        // el fondo de calles impidió exportar: se genera igual, sin fondo
+        try { armarImagen(true).toBlob(function (b) { terminar(b); }, 'image/png'); } catch (e2) { terminar(null); }
+      }
+    }
+    bSh.addEventListener('click', function () {
+      if (!capas.length) { alert('Todavía no hay ubicaciones para compartir.'); return; }
+      showToast('Generando imagen...');
+      exportar(function (b) {
+        if (!b) { alert('No se pudo generar la imagen del mapa.'); return; }
+        var info = opciones.infoExport ? opciones.infoExport() : { titulo: 'Mapa', nombre: 'mapa' };
+        compartirImagenMapa(b, (info.nombre || 'mapa') + '_' + stamp() + '.png', info.titulo || 'Mapa');
+      });
+    });
+
+    function zoomA(nz) { z = Math.max(2, Math.min(19, nz)); pedir(); }
+    bMas.addEventListener('click', function () { zoomA(z + 1); });
+    bMenos.addEventListener('click', function () { zoomA(z - 1); });
+    bAj.addEventListener('click', ajustar);
+    bYo.addEventListener('click', function () {
+      getGps(function (g) {
+        if (!g) { alert('No se pudo obtener tu ubicaci\u00f3n. Revis\u00e1 que el GPS est\u00e9 activado.'); return; }
+        yo = { lat: g.lat, lon: g.lon }; lat0 = g.lat; lon0 = g.lon; if (z < 15) z = 16; pedir();
+      });
+    });
+
+    var pun = {}, cuenta = 0, distIni = 0, zIni = 0, tDown = 0, movido = 0;
+    function rel(e) { var r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    function dist2() { var k = Object.keys(pun), a = pun[k[0]], b = pun[k[1]]; return Math.sqrt((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y)); }
+    canvas.addEventListener('pointerdown', function (e) {
+      try { canvas.setPointerCapture(e.pointerId); } catch (x) {}
+      pun[e.pointerId] = rel(e); cuenta = Object.keys(pun).length;
+      if (cuenta === 1) { tDown = Date.now(); movido = 0; }
+      if (cuenta === 2) { distIni = dist2(); zIni = z; movido = 99; }
+    });
+    canvas.addEventListener('pointermove', function (e) {
+      if (!pun[e.pointerId]) return;
+      var p = rel(e);
+      if (cuenta === 1) {
+        var dx = p.x - pun[e.pointerId].x, dy = p.y - pun[e.pointerId].y;
+        movido += Math.abs(dx) + Math.abs(dy);
+        lon0 = lonDe(mx(lon0, z) - dx, z); lat0 = latDe(my(lat0, z) - dy, z);
+        pun[e.pointerId] = p; pedir();
+      } else if (cuenta === 2) {
+        pun[e.pointerId] = p;
+        if (distIni > 0) { z = Math.max(2, Math.min(19, zIni + Math.log(dist2() / distIni) / Math.LN2)); pedir(); }
+      }
+    });
+    function soltar(e) {
+      if (!pun[e.pointerId]) return;
+      var p = rel(e), uno = (cuenta === 1);
+      delete pun[e.pointerId]; cuenta = Object.keys(pun).length;
+      if (uno && movido < 10 && (Date.now() - tDown) < 500) {
+        for (var i = pins.length - 1; i >= 0; i--) {
+          var q = pins[i];
+          if ((p.x - q.x) * (p.x - q.x) + (p.y - q.y) * (p.y - q.y) <= q.r * q.r) { opciones.onTap(q.info); return; }
+        }
+      }
+    }
+    canvas.addEventListener('pointerup', soltar);
+    canvas.addEventListener('pointercancel', soltar);
+    canvas.addEventListener('wheel', function (e) { e.preventDefault(); zoomA(z + (e.deltaY < 0 ? 0.5 : -0.5)); }, { passive: false });
+
+    function setCapas(nuevas, textoNota) {
+      capas = nuevas;
+      vacio.style.display = nuevas.length ? 'none' : 'flex';
+      if (leyenda) {
+        var h = '';
+        for (var i = 0; i < nuevas.length && i < 10; i++) h += '<div><i style="background:' + nuevas[i].color + '"></i>' + escapeHtml(nuevas[i].nombre) + '</div>';
+        if (nuevas.length > 10) h += '<div class="sg">y ' + (nuevas.length - 10) + ' m\u00e1s</div>';
+        leyenda.innerHTML = h;
+        leyenda.style.display = nuevas.length ? 'block' : 'none';
+      }
+      if (textoNota) { nota.textContent = textoNota; nota.className = 'map-note'; } else { nota.className = 'map-note hidden'; }
+      if (medir()) ajustar();
+    }
+    function redimensionar() { if (medir()) { ajustar(); } }
+
+    medir();
+    return { setCapas: setCapas, resize: redimensionar, redibujar: pedir };
+  }
+
+  var mapaHome = null, mapaRuta = null;
+
+  function renderMapaHome(routes) {
+    if (!mapaHome) {
+      mapaHome = crearMapa(document.getElementById('mapaHome'), {
+        leyenda: true,
+        textoVacio: 'Cuando cargues medidores, las rutas aparecen ac\u00e1 con su color.',
+        infoExport: function () {
+          var rs = loadRoutes(), med = 0;
+          for (var q = 0; q < rs.length; q++) med += totalMedidores(rs[q]);
+          return { titulo: 'Usuarios Especiales \u2014 Mapa', sub: rs.length + ' rutas \u2022 ' + med + ' medidores \u2022 ' + fmtFecha(todayISO()), nombre: 'mapa_rutas' };
+        },
+        onTap: function (info) { if (info && info.capa && info.capa.id) appAbrirRuta(info.capa.id); }
+      });
+    }
+    var capas = [], sinRuta = 0;
+    for (var i = 0; i < routes.length; i++) {
+      var d = puntosDeRuta(routes[i]);
+      if (!d.pts.length) { if (totalMedidores(routes[i]) > 0) sinRuta++; continue; }
+      capas.push({ id: routes[i].id, color: COLORES[i % COLORES.length], label: String(i + 1), nombre: routes[i].numero, pts: d.pts, modo: 'resumen' });
+    }
+    mapaHome.setCapas(capas, sinRuta ? (sinRuta + (sinRuta === 1 ? ' ruta sin ubicaciones' : ' rutas sin ubicaciones')) : '');
+  }
+
+  // ---------- ficha del punto tocado en el mapa ----------
+  var ptActual = null;
+  function abrirPunto(pt) {
+    ptActual = pt;
+    document.getElementById('ptTitulo').textContent = 'N.\u00b0 ' + pad3(pt.n) + ' \u2014 IC ' + (pt.ic || '-');
+    var d = pt.ts ? new Date(pt.ts) : null;
+    var h = '';
+    h += '<div><span style="color:var(--text-dim)">Usuario (IC):</span> <b>' + escapeHtml(pt.ic || '-') + '</b></div>';
+    h += '<div><span style="color:var(--text-dim)">Medidor:</span> <b>' + escapeHtml(pt.med) + '</b></div>';
+    if (pt.modulo) h += '<div><span style="color:var(--text-dim)">M\u00f3dulo:</span> <b>' + escapeHtml(pt.modulo) + '</b></div>';
+    h += '<div><span style="color:var(--text-dim)">Ubicaci\u00f3n:</span> <b>' + escapeHtml(pt.calle) + '</b>' + (pt.zona ? ' \u2014 ' + escapeHtml(pt.zona) : '') + '</div>';
+    h += '<div style="font-size:12px;color:var(--text-dim)">' + pt.lat.toFixed(5) + ', ' + pt.lon.toFixed(5) + (pt.acc ? ' (\u00b1' + Math.round(pt.acc) + ' m)' : '') + '</div>';
+    if (d) h += '<div style="font-size:12px;color:var(--text-dim)">Cargado ' + pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + '</div>';
+    document.getElementById('ptDatos').innerHTML = h;
+    document.getElementById('btnPtFoto').classList.toggle('hidden', !pt.foto);
+    document.getElementById('modalPunto').classList.remove('hidden');
+  }
+  document.getElementById('btnPtCerrar').addEventListener('click', function () { document.getElementById('modalPunto').classList.add('hidden'); });
+  document.getElementById('btnPtMapa').addEventListener('click', function () {
+    if (!ptActual) return;
+    window.open('https://www.google.com/maps/dir/?api=1&destination=' + ptActual.lat + ',' + ptActual.lon, '_blank');
+  });
+  document.getElementById('btnPtFoto').addEventListener('click', function () {
+    if (!ptActual) return;
+    document.getElementById('modalPunto').classList.add('hidden');
+    window.appFoto(ptActual.id, true);
+  });
+
+  function renderMapaRuta(route) {
+    if (!mapaRuta) {
+      mapaRuta = crearMapa(document.getElementById('mapaRuta'), {
+        leyenda: false,
+        textoVacio: 'Esta ruta todav\u00eda no tiene ubicaciones. Se guardan solas al agregar cada medidor.',
+        infoExport: function () {
+          var r = getRoute(currentRouteId);
+          if (!r) return { titulo: 'Mapa', sub: '', nombre: 'mapa' };
+          return { titulo: r.numero + ' \u2014 Mapa del recorrido', sub: fmtFecha(r.fecha) + ' \u2022 ' + totalMedidores(r) + ' medidores' + (lecturistaDe(r) ? ' \u2022 ' + lecturistaDe(r) : ''), nombre: 'mapa_ruta_' + r.numero };
+        },
+        onTap: function (info) {
+          if (info && info.pt) abrirPunto(info.pt);
+        }
+      });
+    }
+    var d = puntosDeRuta(route);
+    mapaRuta.setCapas(d.pts.length ? [{ id: route.id, color: '#ffb300', label: '', nombre: route.numero, pts: d.pts, modo: 'detalle' }] : [],
+      d.sin ? (d.sin + (d.sin === 1 ? ' medidor sin ubicaci\u00f3n' : ' medidores sin ubicaci\u00f3n')) : '');
+  }
+
+  window.addEventListener('resize', function () {
+    if (mapaHome) mapaHome.resize();
+    if (mapaRuta) mapaRuta.resize();
+  });
+  window.addEventListener('online', function () { if (mapaHome) mapaHome.redibujar(); if (mapaRuta) mapaRuta.redibujar(); });
+  window.addEventListener('offline', function () { if (mapaHome) mapaHome.redibujar(); if (mapaRuta) mapaRuta.redibujar(); });
+
+  function renderHome() {
+    var routes = loadRoutes();
+    var container = document.getElementById('listaRutas');
+    document.getElementById('homeExportRow').style.display = routes.length ? 'flex' : 'none';
+    renderMapaHome(routes);
+
+    if (routes.length === 0) {
+      container.innerHTML = '<div class="empty-state">A\u00fan no cargaste ninguna ruta.</div>';
+      return;
+    }
+    var sorted = routes.slice().sort(function (a, b) { return b.createdTs - a.createdTs; });
+    var html = '';
+    for (var i = 0; i < sorted.length; i++) {
+      var r = sorted[i];
+      var ci = routes.indexOf(r);
+      html += '<div class="route-card" onclick="appAbrirRuta(\'' + r.id + '\')">';
+      html += '<div class="circ" style="background:' + COLORES[ci % COLORES.length] + '">' + (ci + 1) + '</div>';
+      html += '<div class="info"><div class="rname">' + escapeHtml(r.numero) + '</div>';
+      html += '<div class="rmeta">' + fmtFecha(r.fecha) + ' &bull; ' + totalMedidores(r) + ' medidores</div></div>';
+      html += '<button class="rdelete" onclick="event.stopPropagation(); appEliminarRuta(\'' + r.id + '\')">&#128465;</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  document.getElementById('btnMostrarNuevaRuta').addEventListener('click', function () {
+    document.getElementById('formNuevaRuta').classList.remove('hidden');
+    document.getElementById('btnMostrarNuevaRuta').classList.add('hidden');
+    document.getElementById('fechaRuta').value = todayISO();
+    document.getElementById('numRuta').focus();
+  });
+  document.getElementById('btnCancelarNuevaRuta').addEventListener('click', function () {
+    document.getElementById('formNuevaRuta').classList.add('hidden');
+    document.getElementById('btnMostrarNuevaRuta').classList.remove('hidden');
+  });
+  document.getElementById('btnCrearRuta').addEventListener('click', function () {
+    var numero = document.getElementById('numRuta').value.trim();
+    var fecha = document.getElementById('fechaRuta').value || todayISO();
+    var zona = numero;
+    if (!numero) { alert('Ingres\u00e1 la zona o el barrio.'); return; }
+
+    var route = { id: uid('ruta'), numero: numero, fecha: fecha, zona: zona, lecturista: getLecturista(), calles: [], createdTs: Date.now() };
+    var routes = loadRoutes();
+    routes.push(route);
+    saveRoutes(routes);
+
+    document.getElementById('numRuta').value = '';
+    document.getElementById('formNuevaRuta').classList.add('hidden');
+    document.getElementById('btnMostrarNuevaRuta').classList.remove('hidden');
+
+    showToast('Ruta creada \u2713');
+    appAbrirRuta(route.id);
+  });
+
+  function limpiarFotosDeRuta(route) {
+    for (var i = 0; i < route.calles.length; i++) {
+      var meds = route.calles[i].medidores;
+      for (var j = 0; j < meds.length; j++) { if (meds[j].tieneFoto) eliminarFoto(meds[j].id); }
+    }
+  }
+
+  window.appEliminarRuta = function (id) {
+    if (!confirm('\u00bfEliminar esta ruta y todos sus medidores cargados?')) return;
+    var routes = loadRoutes();
+    var filtered = [];
+    for (var i = 0; i < routes.length; i++) {
+      if (routes[i].id === id) limpiarFotosDeRuta(routes[i]);
+      else filtered.push(routes[i]);
+    }
+    saveRoutes(filtered);
+    renderHome();
+  };
+
+  document.getElementById('btnExportTodas').addEventListener('click', function () {
+    exportRoutesToCsv(loadRoutes(), 'rutas_todas');
+  });
+
+  // ================= RUTA (armado + recorrido) =================
+  window.appAbrirRuta = function (id) {
+    currentRouteId = id;
+    currentTab = 'armado';
+    saveSession();
+    document.getElementById('screenHome').classList.add('hidden');
+    document.getElementById('screenRoute').classList.remove('hidden');
+    document.getElementById('btnBack').style.display = 'inline-block';
+    setTab('armado');
+    renderRoute();
+  };
+
+  function volverHome() {
+    currentRouteId = null;
+    saveSession();
+    document.getElementById('screenRoute').classList.add('hidden');
+    document.getElementById('screenHome').classList.remove('hidden');
+    document.getElementById('btnBack').style.display = 'none';
+    document.getElementById('headerTitle').innerHTML = '<img src="icon-192.png" alt="" style="width:26px;height:26px;border-radius:6px;vertical-align:-6px;margin-right:6px;">Usuarios Especiales';
+    document.getElementById('headerSub').textContent = 'DPEC - Prefacturaci\u00f3n';
+    renderHome();
+  }
+  document.getElementById('btnBack').addEventListener('click', volverHome);
+
+  function setTab(tab) {
+    currentTab = tab;
+    saveSession();
+    document.getElementById('tabArmado').className = 'tab-btn' + (tab === 'armado' ? ' active' : '');
+    document.getElementById('tabRecorrido').className = 'tab-btn' + (tab === 'recorrido' ? ' active' : '');
+    document.getElementById('viewArmado').className = tab === 'armado' ? '' : 'hidden';
+    document.getElementById('viewRecorrido').className = tab === 'recorrido' ? '' : 'hidden';
+    document.getElementById('tabMapa').className = 'tab-btn' + (tab === 'mapa' ? ' active' : '');
+    document.getElementById('viewMapa').className = tab === 'mapa' ? '' : 'hidden';
+  }
+  document.getElementById('tabArmado').addEventListener('click', function () { setTab('armado'); renderRoute(); });
+  document.getElementById('tabRecorrido').addEventListener('click', function () { setTab('recorrido'); renderRoute(); });
+  document.getElementById('tabMapa').addEventListener('click', function () { setTab('mapa'); renderRoute(); });
+
+  function findActiveCalleIndex(route) {
+    for (var i = 0; i < route.calles.length; i++) { if (!route.calles[i].cerrada) return i; }
+    return -1;
+  }
+
+  function renderRoute() {
+    var route = getRoute(currentRouteId);
+    if (!route) { volverHome(); return; }
+
+    document.getElementById('headerTitle').textContent = String(route.numero).toUpperCase() + ' \u2014 ' + totalMedidores(route) + ' MEDIDORES';
+    document.getElementById('headerSub').textContent = fmtFecha(route.fecha);
+
+    if (currentTab === 'armado') renderArmado(route);
+    else if (currentTab === 'recorrido') renderRecorrido(route);
+    else renderMapaRuta(route);
+  }
+
+  function ordenGlobalDe(route, calleIdx, medIdx) {
+    var n = 0;
+    for (var i = 0; i < calleIdx; i++) n += route.calles[i].medidores.length;
+    return n + medIdx + 1;
+  }
+
+  function renderArmado(route) {
+    var container = document.getElementById('callesContainer');
+    var activeIdx = findActiveCalleIndex(route);
+    var html = '';
+
+    for (var i = 0; i < route.calles.length; i++) {
+      var calle = route.calles[i];
+      var isActive = (i === activeIdx);
+      html += '<div class="calle-card' + (isActive ? ' active' : '') + '">';
+      html += '<div class="calle-head"><div><span class="cname">\uD83D\uDEE3\uFE0F ' + escapeHtml(calle.nombre) + '</span> ';
+      html += '<span class="ccount">\u2014 ' + calle.medidores.length + '</span></div>';
+      if (!isActive) {
+        html += '<button class="reabrir" onclick="appReabrirCalle(\'' + calle.id + '\')">Reabrir</button>';
+      } else {
+        html += '<span style="font-size:11px;color:var(--amber);font-weight:bold;">EN CURSO</span>';
+      }
+      html += '</div>';
+
+      html += '<div class="calle-body">';
+      for (var j = 0; j < calle.medidores.length; j++) {
+        var m = calle.medidores[j];
+        var og = ordenGlobalDe(route, i, j);
+        html += '<div class="med-row"><div class="med-orden">' + pad3(og) + '</div>';
+        html += '<div class="med-info"><b>IC ' + escapeHtml(m.ic || '-') + '</b> \u2014 medidor ' + escapeHtml(m.numMedidor) + (m.modulo ? ' \u2014 m\u00f3dulo ' + escapeHtml(m.modulo) : (m.altura ? ' \u2014 altura ' + escapeHtml(m.altura) : '')) + (!m.lat ? ' <span style="color:var(--red);font-size:11px;">\u00b7 sin ubicaci\u00f3n</span>' : '') + '</div>';
+        html += '<div class="med-actions">';
+        html += '<button class="foto' + (m.tieneFoto ? ' tiene' : '') + '" onclick="appFoto(\'' + m.id + '\',' + (m.tieneFoto ? 'true' : 'false') + ')">\uD83D\uDCF7</button>';
+        html += '<button class="edit" onclick="appEditar(\'' + calle.id + '\',' + j + ')">\u270F\uFE0F</button>';
+        if (isActive) {
+          html += '<button onclick="appMover(\'' + calle.id + '\',' + j + ',-1)" ' + (j === 0 ? 'disabled' : '') + '>\u2b06\ufe0f</button>';
+          html += '<button onclick="appMover(\'' + calle.id + '\',' + j + ',1)" ' + (j === calle.medidores.length - 1 ? 'disabled' : '') + '>\u2b07\ufe0f</button>';
+          html += '<button class="del" onclick="appEliminarMedidor(\'' + calle.id + '\',' + j + ')">\u2715</button>';
+        }
+        html += '</div>';
+        html += '</div>';
+      }
+
+      if (isActive) {
+        html += '<div class="add-form">';
+        html += '<div class="fld"><label>IC / N\u00b0 de usuario</label><input type="text" inputmode="numeric" id="inpIc" placeholder="Ej: 1234567" autocomplete="off"></div>';
+        html += '</div>';
+        html += '<div class="add-form">';
+        html += '<div class="fld"><label>N\u00b0 Medidor</label><input type="text" inputmode="numeric" id="inpMedidor" placeholder="Ej: 45821" autocomplete="off"></div>';
+        html += '<button class="scan-btn" onclick="appEscanear(\'inpMedidor\')">\ud83d\udcf7 Escanear</button>';
+        html += '</div>';
+        html += '<div class="add-form">';
+        html += '<div class="fld"><label>N\u00b0 M\u00f3dulo</label><input type="text" id="inpModulo" placeholder="Ej: 30123" autocomplete="off" autocapitalize="characters"></div>';
+        html += '<button class="scan-btn" onclick="appEscanear(\'inpModulo\')">\ud83d\udcf7 Escanear</button>';
+        html += '</div>';
+        html += '<div class="add-form">';
+        html += '<button class="add-btn" onclick="appAgregarMedidor(\'' + calle.id + '\')">AGREGAR</button>';
+        html += '</div>';
+        html += '<button class="btn-sec" style="margin-top:10px;width:100%;" onclick="appCerrarCalle(\'' + calle.id + '\')">\uD83D\uDD12 CERRAR CALLE</button>';
+      }
+      html += '</div></div>';
+    }
+    container.innerHTML = html;
+
+    var showSiguiente = (activeIdx === -1);
+    document.getElementById('btnSiguienteCalle').classList.toggle('hidden', !showSiguiente);
+  }
+
+  document.getElementById('btnSiguienteCalle').addEventListener('click', function () {
+    document.getElementById('formSiguienteCalle').classList.remove('hidden');
+    document.getElementById('btnSiguienteCalle').classList.add('hidden');
+    document.getElementById('nombreCalle').focus();
+  });
+  document.getElementById('btnCancelarCalle').addEventListener('click', function () {
+    document.getElementById('formSiguienteCalle').classList.add('hidden');
+    document.getElementById('btnSiguienteCalle').classList.remove('hidden');
+    document.getElementById('nombreCalle').value = '';
+  });
+  document.getElementById('btnIniciarCalle').addEventListener('click', function () {
+    var nombre = document.getElementById('nombreCalle').value.trim();
+    if (!nombre) { alert('Ingres\u00e1 la calle o el barrio.'); return; }
+    var route = getRoute(currentRouteId);
+    route.calles.push({ id: uid('calle'), nombre: nombre, cerrada: false, medidores: [] });
+    updateRoute(route);
+    document.getElementById('nombreCalle').value = '';
+    document.getElementById('formSiguienteCalle').classList.add('hidden');
+    document.getElementById('btnSiguienteCalle').classList.remove('hidden');
+    renderRoute();
+  });
+
+  function findCalle(route, calleId) {
+    for (var i = 0; i < route.calles.length; i++) { if (route.calles[i].id === calleId) return route.calles[i]; }
+    return null;
+  }
+
+  // ---------- aviso de medidor repetido ----------
+  function normNum(x) {
+    var n = String(x == null ? '' : x).trim().toLowerCase();
+    if (/^\d+$/.test(n)) n = n.replace(/^0+(?=\d)/, '');
+    return n;
+  }
+  function buscarDuplicado(num, excluirId) {
+    var objetivo = normNum(num);
+    if (!objetivo) return null;
+    var routes = loadRoutes(), otra = null;
+    for (var r = 0; r < routes.length; r++) {
+      var route = routes[r];
+      var orden = 0;
+      for (var i = 0; i < route.calles.length; i++) {
+        for (var j = 0; j < route.calles[i].medidores.length; j++) {
+          orden++;
+          if (route.calles[i].medidores[j].id !== excluirId && normNum(route.calles[i].medidores[j].numMedidor) === objetivo) {
+            var hit = { numero: route.calles[i].medidores[j].numMedidor, ruta: route.numero, calle: route.calles[i].nombre, orden: orden, misma: route.id === currentRouteId };
+            if (hit.misma) return hit;
+            if (!otra) otra = hit;
+          }
+        }
+      }
+    }
+    return otra;
+  }
+  function textoDuplicado(d) {
+    return 'El medidor ' + d.numero + ' ya est\u00e1 cargado ' + (d.misma ? 'en esta ruta' : 'en la ruta ' + d.ruta) + ' (calle ' + d.calle + ', n.\u00b0 ' + pad3(d.orden) + ').';
+  }
+
+  var agregando = false;
+  var scanGps = null;     // ubicaci\u00f3n tomada al leer el c\u00f3digo
+  var scanGpsTs = 0;
+
+  window.appAgregarMedidor = function (calleId) {
+    if (agregando) return;
+    var numMedidor = document.getElementById('inpMedidor').value.trim();
+    var modulo = document.getElementById('inpModulo').value.trim();
+    var ic = document.getElementById('inpIc').value.trim();
+    if (!ic) { alert('Ingres\u00e1 el IC o n\u00famero de usuario.'); return; }
+    if (!numMedidor) { alert('Ingres\u00e1 el n\u00famero de medidor.'); return; }
+
+    var dup = buscarDuplicado(numMedidor);
+    if (dup && !confirm('\u26a0\ufe0f ' + textoDuplicado(dup) + '\n\n\u00bfAgregarlo igual?')) return;
+
+    agregando = true;
+    var btn = document.querySelector('.add-btn');
+    if (btn) { btn.disabled = true; btn.textContent = 'UBICANDO...'; }
+
+    function guardar(gps) {
+      var route = getRoute(currentRouteId);
+      var calle = route ? findCalle(route, calleId) : null;
+      agregando = false;
+      if (!calle) { renderRoute(); return; }
+      calle.medidores.push({
+        id: uid('m'),
+        numMedidor: numMedidor,
+        ic: ic,
+        modulo: modulo,
+        lat: gps ? gps.lat : '',
+        lon: gps ? gps.lon : '',
+        acc: gps ? gps.acc : '',
+        ts: Date.now()
+      });
+      updateRoute(route);
+      scanGps = null;
+      renderRoute();
+      var inp = document.getElementById('inpMedidor');
+      if (inp) inp.focus();
+      showToast(gps ? 'Agregado \u2713' : 'Agregado (sin ubicaci\u00f3n)');
+    }
+
+    if (scanGps && (Date.now() - scanGpsTs) < 120000) guardar(scanGps);
+    else getGps(guardar);
+  };
+
+  // ---------- Lector de códigos de barras (cámara, offline) ----------
+  var scanStream = null;
+  var scanTimer = null;
+  var scanDetector = null;
+  var scanTrack = null;
+  var scanPendiente = '';
+  var torchOn = false;
+  var ultimaLectura = '', lecturasIguales = 0;
+  var scanCampo = 'inpMedidor';
+
+  function detenerScan() {
+    if (scanTimer) { clearInterval(scanTimer); scanTimer = null; }
+    if (scanStream) {
+      var tracks = scanStream.getTracks();
+      for (var i = 0; i < tracks.length; i++) tracks[i].stop();
+      scanStream = null;
+    }
+    scanTrack = null; torchOn = false;
+    var v = document.getElementById('scanVideo');
+    if (v) v.srcObject = null;
+    document.getElementById('btnTorch').classList.add('hidden');
+    document.getElementById('btnTorch').classList.remove('on');
+    document.getElementById('scanZoomBox').classList.add('hidden');
+    ocultarResultadoScan();
+    document.getElementById('scanModal').classList.add('hidden');
+  }
+
+  function ocultarResultadoScan() {
+    document.getElementById('scanResultado').classList.add('hidden');
+    document.getElementById('scanBotones').classList.remove('hidden');
+    document.getElementById('scanHint').classList.remove('hidden');
+  }
+
+  function iniciarDeteccion() {
+    var v = document.getElementById('scanVideo');
+    ultimaLectura = ''; lecturasIguales = 0;
+    var ocupado = false;
+    if (scanTimer) clearInterval(scanTimer);
+    scanTimer = setInterval(function () {
+      if (ocupado || v.readyState < 2) return;
+      ocupado = true;
+      scanDetector.detect(v).then(function (codigos) {
+        ocupado = false;
+        if (!scanTimer) return;
+        if (codigos && codigos.length) {
+          var val = String(codigos[0].rawValue || '').trim();
+          if (!val) return;
+          // se pide la misma lectura 2 veces seguidas: evita n\u00fameros mal le\u00eddos
+          if (val === ultimaLectura) lecturasIguales++; else { ultimaLectura = val; lecturasIguales = 1; }
+          if (lecturasIguales >= 2) alSerLeido(val);
+        } else { ultimaLectura = ''; lecturasIguales = 0; }
+      }).catch(function () { ocupado = false; });
+    }, 200);
+  }
+
+  // Al leer un c\u00f3digo se muestra el n\u00famero grande para confirmarlo
+  function alSerLeido(valor) {
+    valor = String(valor || '').trim();
+    if (!valor) return;
+    if (scanTimer) { clearInterval(scanTimer); scanTimer = null; }
+    var v = document.getElementById('scanVideo');
+    try { v.pause(); } catch (e) {}
+    if (navigator.vibrate) navigator.vibrate(120);
+    scanPendiente = valor;
+    document.getElementById('scanResNum').textContent = valor;
+    var dup = (scanCampo === 'inpMedidor') ? buscarDuplicado(valor) : null;
+    document.getElementById('scanResLbl').textContent = (scanCampo === 'inpMedidor') ? 'N\u00famero de MEDIDOR le\u00eddo' : 'N\u00famero de M\u00d3DULO le\u00eddo';
+    var w = document.getElementById('scanResWarn');
+    if (dup) { w.textContent = '\u26a0\ufe0f ' + textoDuplicado(dup); w.classList.remove('hidden'); }
+    else { w.classList.add('hidden'); }
+    document.getElementById('scanResultado').classList.remove('hidden');
+    document.getElementById('scanBotones').classList.add('hidden');
+    document.getElementById('scanHint').classList.add('hidden');
+  }
+
+  document.getElementById('btnScanUsar').addEventListener('click', function () {
+    var valor = scanPendiente;
+    detenerScan();
+    if (!valor) return;
+    var inp = document.getElementById(scanCampo);
+    if (inp) inp.value = valor;
+    if (scanCampo === 'inpMedidor') {
+      // ubicaci\u00f3n tomada en el momento de la lectura
+      scanGps = null;
+      getGps(function (g) { scanGps = g; scanGpsTs = Date.now(); });
+    }
+    showToast('Le\u00eddo: ' + valor);
+    var sig = document.getElementById(scanCampo === 'inpMedidor' ? 'inpModulo' : 'inpMedidor');
+    if (sig && scanCampo === 'inpMedidor') sig.focus();
+  });
+  document.getElementById('btnScanOtra').addEventListener('click', function () {
+    scanPendiente = '';
+    ocultarResultadoScan();
+    var v = document.getElementById('scanVideo');
+    var p = v.play(); if (p && p.catch) p.catch(function () {});
+    iniciarDeteccion();
+  });
+
+  // Linterna y zoom (si el celular los permite)
+  function configurarControlesCamara(stream) {
+    scanTrack = stream.getVideoTracks()[0] || null;
+    var caps = {};
+    try { caps = (scanTrack && scanTrack.getCapabilities) ? scanTrack.getCapabilities() : {}; } catch (e) { caps = {}; }
+    var bT = document.getElementById('btnTorch');
+    if (caps.torch) bT.classList.remove('hidden'); else bT.classList.add('hidden');
+    var zb = document.getElementById('scanZoomBox'), zr = document.getElementById('scanZoom');
+    if (caps.zoom && caps.zoom.max > caps.zoom.min) {
+      var min = caps.zoom.min, max = min + (caps.zoom.max - min) * 0.7;   // tope al 70 %: evita que se trabe la c\u00e1mara
+      zr.min = min; zr.max = max; zr.step = caps.zoom.step || 0.1; zr.value = min;
+      zb.classList.remove('hidden');
+    } else { zb.classList.add('hidden'); }
+  }
+  document.getElementById('btnTorch').addEventListener('click', function () {
+    if (!scanTrack) return;
+    torchOn = !torchOn;
+    var b = document.getElementById('btnTorch');
+    scanTrack.applyConstraints({ advanced: [{ torch: torchOn }] }).then(function () {
+      b.classList.toggle('on', torchOn);
+    }).catch(function () { torchOn = false; b.classList.remove('on'); });
+  });
+  var zoomTimer = null;
+  document.getElementById('scanZoom').addEventListener('input', function (e) {
+    var val = parseFloat(e.target.value);
+    if (zoomTimer) return;
+    zoomTimer = setTimeout(function () {
+      zoomTimer = null;
+      if (scanTrack) scanTrack.applyConstraints({ advanced: [{ zoom: val }] }).catch(function () {});
+    }, 120);
+  });
+
+  window.appEscanear = function (campo) {
+    scanCampo = campo || 'inpMedidor';
+    document.getElementById('scanHintTxt').textContent = scanCampo === 'inpMedidor' ? 'Apunt\u00e1 al c\u00f3digo de barras del MEDIDOR' : 'Apunt\u00e1 al c\u00f3digo del M\u00d3DULO';
+    if (!('BarcodeDetector' in window) || !navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      alert('Este celular o navegador no tiene lector de c\u00f3digos. Carg\u00e1 el n\u00famero a mano.');
+      return;
+    }
+    if (scanStream) return;   // ya est\u00e1 abierto
+    var preferidos = ['code_128', 'code_39', 'code_93', 'codabar', 'ean_13', 'ean_8', 'itf', 'upc_a', 'upc_e', 'qr_code', 'data_matrix'];
+    BarcodeDetector.getSupportedFormats().then(function (soportados) {
+      var formatos = preferidos.filter(function (f) { return soportados.indexOf(f) !== -1; });
+      scanDetector = formatos.length ? new BarcodeDetector({ formats: formatos }) : new BarcodeDetector();
+      return navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 720 } },
+        audio: false
+      });
+    }).then(function (stream) {
+      scanStream = stream;
+      var v = document.getElementById('scanVideo');
+      v.srcObject = stream;
+      ocultarResultadoScan();
+      document.getElementById('scanModal').classList.remove('hidden');
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {});
+      configurarControlesCamara(stream);
+      iniciarDeteccion();
+    }).catch(function (err) {
+      detenerScan();
+      alert('No se pudo abrir la c\u00e1mara (' + (err && err.name ? err.name : 'error') + '). Revis\u00e1 el permiso de c\u00e1mara de la app.');
+    });
+  };
+
+  document.getElementById('btnCerrarScan').addEventListener('click', detenerScan);
+  document.addEventListener('visibilitychange', function () { if (document.hidden) detenerScan(); });
+
+  // Enter: del medidor pasa al m\u00f3dulo; en el m\u00f3dulo agrega el medidor
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' || !e.target || !e.target.id) return;
+    if (e.target.id === 'inpIc') {
+      e.preventDefault();
+      var mm = document.getElementById('inpMedidor'); if (mm) mm.focus();
+    } else if (e.target.id === 'inpMedidor') {
+      e.preventDefault();
+      var alt = document.getElementById('inpModulo'); if (alt) alt.focus();
+    } else if (e.target.id === 'inpModulo') {
+      e.preventDefault();
+      var route = getRoute(currentRouteId);
+      var idx = route ? findActiveCalleIndex(route) : -1;
+      if (idx !== -1) window.appAgregarMedidor(route.calles[idx].id);
+    }
+  });
+
+  // ---------- corregir un medidor ya cargado ----------
+  var editCtx = null;
+  window.appEditar = function (calleId, idx) {
+    var route = getRoute(currentRouteId);
+    var calle = route ? findCalle(route, calleId) : null;
+    var m = calle ? calle.medidores[idx] : null;
+    if (!m) return;
+    editCtx = { calleId: calleId, medId: m.id };
+    document.getElementById('editInfo').textContent = 'Calle ' + calle.nombre + ' \u2022 n.\u00b0 ' + pad3(ordenGlobalDe(route, route.calles.indexOf(calle), idx)) + '. La ubicaci\u00f3n y la foto se conservan.';
+    document.getElementById('editIc').value = m.ic || '';
+    document.getElementById('editNum').value = m.numMedidor;
+    document.getElementById('editAlt').value = m.modulo || '';
+    document.getElementById('editFotoAviso').classList.toggle('hidden', !m.tieneFoto);
+    document.getElementById('modalEditar').classList.remove('hidden');
+    setTimeout(function () { var i = document.getElementById('editIc'); i.focus(); i.select(); }, 150);
+  };
+  function cerrarEditar() { document.getElementById('modalEditar').classList.add('hidden'); editCtx = null; }
+  function guardarEdicion() {
+    if (!editCtx) return;
+    var num = document.getElementById('editNum').value.trim();
+    var icE = document.getElementById('editIc').value.trim();
+    if (!icE) { alert('Ingres\u00e1 el IC o n\u00famero de usuario.'); return; }
+    var alt = document.getElementById('editAlt').value.trim();
+    if (!num) { alert('Ingres\u00e1 el n\u00famero de medidor.'); return; }
+    var route = getRoute(currentRouteId);
+    var calle = route ? findCalle(route, editCtx.calleId) : null;
+    var m = null;
+    if (calle) { for (var i = 0; i < calle.medidores.length; i++) { if (calle.medidores[i].id === editCtx.medId) m = calle.medidores[i]; } }
+    if (!m) { cerrarEditar(); return; }
+    if (normNum(num) !== normNum(m.numMedidor)) {
+      var dup = buscarDuplicado(num, m.id);
+      if (dup && !confirm('\u26a0\ufe0f ' + textoDuplicado(dup) + '\n\n\u00bfGuardarlo igual?')) return;
+    }
+    m.numMedidor = num;
+    m.ic = icE;
+    m.modulo = alt;
+    updateRoute(route);
+    cerrarEditar();
+    renderRoute();
+    showToast('Corregido \u2713');
+  }
+  document.getElementById('btnEditGuardar').addEventListener('click', guardarEdicion);
+  document.getElementById('btnEditCancelar').addEventListener('click', cerrarEditar);
+  document.getElementById('editAlt').addEventListener('keydown', function (e) { if (e.key === 'Enter') guardarEdicion(); });
+  document.getElementById('editIc').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('editNum').focus(); } });
+  document.getElementById('editNum').addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); document.getElementById('editAlt').focus(); } });
+
+  window.appMover = function (calleId, idx, dir) {
+    var route = getRoute(currentRouteId);
+    var calle = findCalle(route, calleId);
+    var newIdx = idx + dir;
+    if (newIdx < 0 || newIdx >= calle.medidores.length) return;
+    var tmp = calle.medidores[idx];
+    calle.medidores[idx] = calle.medidores[newIdx];
+    calle.medidores[newIdx] = tmp;
+    updateRoute(route);
+    renderRoute();
+  };
+
+  window.appEliminarMedidor = function (calleId, idx) {
+    var route = getRoute(currentRouteId);
+    var calle = findCalle(route, calleId);
+    var m = calle.medidores[idx];
+    if (m && m.tieneFoto) eliminarFoto(m.id);
+    calle.medidores.splice(idx, 1);
+    updateRoute(route);
+    renderRoute();
+  };
+
+  // ---------- fotos: tomar / ver / eliminar ----------
+  var fotoPendienteId = null;
+
+  window.appFoto = function (medId, tieneFoto) {
+    if (tieneFoto) { appVerFoto(medId); return; }
+    fotoPendienteId = medId;
+    document.getElementById('inpFotoFile').click();
+  };
+
+  document.getElementById('inpFotoFile').addEventListener('change', function (e) {
+    var file = e.target.files[0];
+    var medId = fotoPendienteId;
+    fotoPendienteId = null;
+    e.target.value = '';
+    if (!file || !medId) return;
+    var rutaSello = getRoute(currentRouteId);
+    var lineasSello = rutaSello ? datosSello(rutaSello, medId) : null;
+    comprimirFoto(file, function (dataUrl) {
+      guardarFoto(medId, dataUrl).then(function () {
+        var route = getRoute(currentRouteId);
+        var m = findMedidorById(route, medId);
+        if (m) {
+          m.tieneFoto = true;
+          updateRoute(route);
+          renderRoute();
+          showToast('Foto guardada \u2713');
+        }
+      }).catch(function () { alert('No se pudo guardar la foto.'); });
+    }, lineasSello);
+  });
+
+  function appVerFoto(medId) {
+    obtenerFoto(medId).then(function (dataUrl) {
+      if (!dataUrl) { alert('No se encontr\u00f3 la foto.'); return; }
+      document.getElementById('fotoModalImg').src = dataUrl;
+      document.getElementById('fotoModal').classList.remove('hidden');
+      document.getElementById('fotoModal').setAttribute('data-med-id', medId);
+    });
+  }
+
+  document.getElementById('btnCerrarFoto').addEventListener('click', function () {
+    document.getElementById('fotoModal').classList.add('hidden');
+  });
+  document.getElementById('btnEliminarFoto').addEventListener('click', function () {
+    var medId = document.getElementById('fotoModal').getAttribute('data-med-id');
+    if (!medId || !confirm('\u00bfEliminar esta foto?')) return;
+    eliminarFoto(medId).then(function () {
+      var route = getRoute(currentRouteId);
+      var m = findMedidorById(route, medId);
+      if (m) { m.tieneFoto = false; updateRoute(route); }
+      document.getElementById('fotoModal').classList.add('hidden');
+      renderRoute();
+      showToast('Foto eliminada \u2713');
+    });
+  });
+
+  window.appCerrarCalle = function (calleId) {
+    var route = getRoute(currentRouteId);
+    var calle = findCalle(route, calleId);
+    if (calle.medidores.length === 0) {
+      if (!confirm('Esta calle no tiene medidores cargados. \u00bfEliminarla?')) return;
+      var idx = route.calles.indexOf(calle);
+      route.calles.splice(idx, 1);
+    } else {
+      calle.cerrada = true;
+    }
+    updateRoute(route);
+    showToast('Calle cerrada \u2713');
+    renderRoute();
+  };
+
+  window.appReabrirCalle = function (calleId) {
+    var route = getRoute(currentRouteId);
+    var activeIdx = findActiveCalleIndex(route);
+    if (activeIdx !== -1) { alert('Cerr\u00e1 primero la calle en curso antes de reabrir otra.'); return; }
+    var calle = findCalle(route, calleId);
+    calle.cerrada = false;
+    updateRoute(route);
+    renderRoute();
+  };
+
+  document.getElementById('btnEliminarRuta').addEventListener('click', function () {
+    if (!confirm('\u00bfEliminar esta ruta completa?')) return;
+    var routes = loadRoutes();
+    var filtered = [];
+    for (var i = 0; i < routes.length; i++) {
+      if (routes[i].id === currentRouteId) limpiarFotosDeRuta(routes[i]);
+      else filtered.push(routes[i]);
+    }
+    saveRoutes(filtered);
+    volverHome();
+  });
+
+  // ---------- Recorrido ----------
+  function renderRecorrido(route) {
+    var container = document.getElementById('recorridoContainer');
+    var flat = [];
+    for (var i = 0; i < route.calles.length; i++) {
+      var calle = route.calles[i];
+      for (var j = 0; j < calle.medidores.length; j++) {
+        flat.push({ calle: calle.nombre, m: calle.medidores[j] });
+      }
+    }
+    if (flat.length === 0) {
+      container.innerHTML = '<div class="empty-state">Todav\u00eda no hay medidores cargados en esta ruta.</div>';
+      return;
+    }
+    var html = '';
+    for (var k = 0; k < flat.length; k++) {
+      var isFirst = (k === 0);
+      var isLast = (k === flat.length - 1);
+      var tag = isFirst ? '\uD83D\uDCCD INICIO' : (isLast ? '\uD83D\uDCCD FIN' : 'CONTORNO');
+      var dotClass = isFirst ? 'inicio' : (isLast ? 'fin' : '');
+      html += '<div class="recorrido-item">';
+      html += '<div class="rline"><div class="rdot ' + dotClass + '"></div>' + (isLast ? '' : '<div class="rconn"></div>') + '</div>';
+      html += '<div class="rinfo"><div class="rtag">' + tag + '</div>';
+      html += '<div class="rmain"><b>' + escapeHtml(flat[k].calle) + '</b>' + '' + ' \u2014 IC ' + escapeHtml(flat[k].m.ic || '-') + ' \u2014 medidor ' + escapeHtml(flat[k].m.numMedidor) + '</div></div>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // Guardar recorrido: deja un respaldo en el celular y ofrece enviar el Excel
+  var BK_KEY = 'dpec_ue_guardados';
+  document.getElementById('btnGuardarRuta').addEventListener('click', function () {
+    var route = getRoute(currentRouteId);
+    if (!route) return;
+    updateRoute(route);
+    var cant = totalMedidores(route);
+    if (!cant) { showToast('Todav\u00eda no hay medidores'); return; }
+    try {
+      var lista = JSON.parse(localStorage.getItem(BK_KEY) || '[]');
+      lista = lista.filter(function (x) { return x.id !== route.id; });
+      lista.push({ id: route.id, ts: Date.now(), ruta: JSON.parse(JSON.stringify(route)) });
+      while (lista.length > 30) lista.shift();
+      localStorage.setItem(BK_KEY, JSON.stringify(lista));
+    } catch (e) { alert('No se pudo guardar el respaldo (memoria llena).'); return; }
+    route.guardadoTs = Date.now();
+    updateRoute(route);
+    var d = new Date(route.guardadoTs);
+    showToast('Recorrido guardado \u2713 ' + cant + ' medidores');
+    if (confirm('\u2705 Recorrido guardado (' + cant + ' medidores, ' + pad(d.getHours()) + ':' + pad(d.getMinutes()) + ').\n\n\u00bfQuer\u00e9s enviar el Excel ahora?')) compartirRuta(false);
+  });
+
+
+  document.getElementById('btnExportRuta').addEventListener('click', function () {
+    var route = getRoute(currentRouteId);
+    exportRoutesToCsv([route], 'ruta_' + String(route.numero).replace(/[^A-Za-z0-9]+/g, '_'));
+  });
+
+  document.getElementById('btnExportPdf').addEventListener('click', function () {
+    var route = getRoute(currentRouteId);
+    var medsConFoto = [];
+    for (var i = 0; i < route.calles.length; i++) {
+      var meds = route.calles[i].medidores;
+      for (var j = 0; j < meds.length; j++) { if (meds[j].tieneFoto) medsConFoto.push(meds[j].id); }
+    }
+    var promesas = medsConFoto.map(function (id) {
+      return obtenerFoto(id).then(function (dataUrl) { return { id: id, dataUrl: dataUrl }; }).catch(function () { return { id: id, dataUrl: null }; });
+    });
+    Promise.all(promesas).then(function (resultados) {
+      var fotosPorId = {};
+      resultados.forEach(function (r) { fotosPorId[r.id] = r.dataUrl; });
+      renderPrintArea(route, fotosPorId);
+      setTimeout(function () { window.print(); }, 150);
+    });
+  });
+
+  function renderPrintArea(route, fotosPorId) {
+    var html = '<div class="print-title">' + escapeHtml(route.numero) + '</div>';
+    html += '<div class="print-sub">' + fmtFecha(route.fecha) + (route.zona ? ' \u2022 ' + escapeHtml(route.zona) : '') + ' \u2022 ' + totalMedidores(route) + ' medidores' + (lecturistaDe(route) ? ' \u2022 Lecturista: ' + escapeHtml(lecturistaDe(route)) : '') + '</div>';
+    for (var i = 0; i < route.calles.length; i++) {
+      var calle = route.calles[i];
+      html += '<div class="print-calle">\uD83D\uDEE3\uFE0F ' + escapeHtml(calle.nombre) + ' \u2014 ' + calle.medidores.length + ' medidores</div>';
+      for (var j = 0; j < calle.medidores.length; j++) {
+        var m = calle.medidores[j];
+        var og = ordenGlobalDe(route, i, j);
+        html += '<div class="print-med">';
+        html += '<div class="print-med-title">' + pad3(og) + ' \u2014 IC ' + escapeHtml(m.ic || '-') + ' \u2014 Medidor ' + escapeHtml(m.numMedidor) + (m.modulo ? ' \u2014 m\u00f3dulo ' + escapeHtml(m.modulo) : '') + '</div>';
+        if (m.obs) html += '<div class="print-med-sub">' + escapeHtml(m.obs) + '</div>';
+        if (m.tieneFoto && fotosPorId[m.id]) {
+          html += '<img src="' + fotosPorId[m.id] + '" alt="Foto medidor ' + escapeHtml(m.numMedidor) + '">';
+        }
+        html += '</div>';
+      }
+    }
+    document.getElementById('printArea').innerHTML = html;
+  }
+
+  // ---------- Export CSV ----------
+  function buildCsv(routes) {
+    var hasData = false;
+    var rows = ['Ruta;Fecha;Zona;Orden Global;Calle;Orden en Calle;IC;N\u00b0 Medidor;M\u00f3dulo;Altura (anterior);Foto;Latitud;Longitud;Precision GPS (m);Lecturista'];
+    for (var r = 0; r < routes.length; r++) {
+      var route = routes[r];
+      var globalOrden = 0;
+      for (var i = 0; i < route.calles.length; i++) {
+        var calle = route.calles[i];
+        for (var j = 0; j < calle.medidores.length; j++) {
+          globalOrden++;
+          hasData = true;
+          var m = calle.medidores[j];
+          var row = [
+            route.numero, fmtFecha(route.fecha), route.zona || '',
+            pad3(globalOrden), calle.nombre, pad3(j + 1),
+            m.ic || '', m.numMedidor, m.modulo || '', m.altura || '', (m.tieneFoto ? 'S\u00ed' : 'No'), m.lat || '', m.lon || '', m.acc || '', limpioCsv(lecturistaDe(route))
+          ];
+          rows.push(row.join(';'));
+        }
+      }
+    }
+    if (!hasData) return null;
+    return '\uFEFF' + rows.join('\r\n');
+  }
+
+  function stamp() {
+    var d = new Date();
+    return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '_' + pad(d.getHours()) + pad(d.getMinutes());
+  }
+
+  function exportRoutesToCsv(routes, fileBase) {
+    var csv = buildCsv(routes);
+    if (!csv) { alert('No hay medidores cargados para exportar.'); return; }
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = fileBase + '_' + stamp() + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  // ---------- Compartir (WhatsApp, mail, Drive...) ----------
+  function dataUrlToFile(dataUrl, name) {
+    var parts = dataUrl.split(',');
+    var bin = atob(parts[1]);
+    var arr = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+    return new File([arr], name, { type: 'image/jpeg' });
+  }
+
+  function compartirRuta(conFotos) {
+    var route = getRoute(currentRouteId);
+    var csv = buildCsv([route]);
+    if (!csv) { alert('No hay medidores cargados para compartir.'); return; }
+    var base = 'ruta_' + String(route.numero).replace(/[^A-Za-z0-9]+/g, '_') + '_' + stamp();
+    var files = [new File([csv], base + '.csv', { type: 'text/csv' })];
+    var titulo = route.numero + ' - ' + fmtFecha(route.fecha);
+
+    function enviar() {
+      if (navigator.canShare && navigator.canShare({ files: files }) && navigator.share) {
+        navigator.share({ files: files, title: titulo, text: titulo }).catch(function (err) {
+          if (err && err.name === 'AbortError') return;
+          alert('No se pudo compartir: ' + (err && err.message ? err.message : err));
+        });
+      } else {
+        exportRoutesToCsv([route], 'ruta_' + String(route.numero).replace(/[^A-Za-z0-9]+/g, '_'));
+        alert('Este navegador no permite compartir directo. Se descarg\u00F3 el archivo en Descargas y lo pod\u00E9s enviar desde ah\u00ED.');
+      }
+    }
+
+    if (!conFotos) { enviar(); return; }
+
+    var items = [];
+    for (var i = 0; i < route.calles.length; i++) {
+      for (var j = 0; j < route.calles[i].medidores.length; j++) {
+        var m = route.calles[i].medidores[j];
+        if (m.tieneFoto) items.push({ id: m.id, nombre: pad3(ordenGlobalDe(route, i, j)) + '_' + route.calles[i].nombre.replace(/[^A-Za-z0-9]+/g, '_') + '_med' + m.numMedidor + '.jpg' });
+      }
+    }
+    if (items.length === 0) { alert('Esta ruta todav\u00EDa no tiene fotos. Se comparte solo el Excel.'); enviar(); return; }
+
+    Promise.all(items.map(function (it) {
+      return obtenerFoto(it.id).then(function (dataUrl) {
+        if (dataUrl) files.push(dataUrlToFile(dataUrl, it.nombre));
+      }).catch(function () {});
+    })).then(enviar);
+  }
+
+  document.getElementById('btnShareExcel').addEventListener('click', function () { compartirRuta(false); });
+  document.getElementById('btnShareFotos').addEventListener('click', function () { compartirRuta(true); });
+
+  // ---------- nombre del lecturista ----------
+  function mostrarNombre() {
+    var n = getLecturista();
+    document.getElementById('lecturistaNombre').textContent = n || 'sin nombre';
+  }
+  function abrirModalNombre(obligatorio) {
+    var m = document.getElementById('modalNombre');
+    document.getElementById('inpNombre').value = getLecturista();
+    document.getElementById('btnNombreCancelar').classList.toggle('hidden', !!obligatorio);
+    m.classList.remove('hidden');
+    setTimeout(function () { document.getElementById('inpNombre').focus(); }, 150);
+  }
+  function guardarNombre() {
+    var v = document.getElementById('inpNombre').value.trim();
+    if (v.length < 3) { alert('Escrib\u00ed tu nombre y apellido.'); return; }
+    setLecturista(v);
+    document.getElementById('modalNombre').classList.add('hidden');
+    mostrarNombre();
+    showToast('Nombre guardado \u2713');
+  }
+  document.getElementById('btnNombreGuardar').addEventListener('click', guardarNombre);
+  document.getElementById('inpNombre').addEventListener('keydown', function (e) { if (e.key === 'Enter') guardarNombre(); });
+  document.getElementById('btnNombreCancelar').addEventListener('click', function () { document.getElementById('modalNombre').classList.add('hidden'); });
+  document.getElementById('btnLecturista').addEventListener('click', function () { abrirModalNombre(false); });
+  mostrarNombre();
+
+  // ---------- interruptor remoto (estado.json) ----------
+  var ESTADO_KEY = 'dpec_ue_estado';
+  function leerEstado() { try { return JSON.parse(localStorage.getItem(ESTADO_KEY) || 'null'); } catch (e) { return null; } }
+  function guardarEstado(o) { try { localStorage.setItem(ESTADO_KEY, JSON.stringify(o)); } catch (e) {} }
+  function aplicarEstado() {
+    var e = leerEstado(), bloquear = false, titulo = 'Aplicaci\u00f3n desactivada', msg = '';
+    if (e) {
+      if (e.activa === false) {
+        bloquear = true;
+        msg = e.mensaje || 'La aplicaci\u00f3n est\u00e1 desactivada por el momento.';
+      } else if (e.maxDias > 0 && e.ts && (Date.now() - e.ts) > e.maxDias * 86400000) {
+        bloquear = true; titulo = 'Falta verificar';
+        msg = 'Hace m\u00e1s de ' + e.maxDias + ' d\u00edas que la app no se conecta. Conectate a Internet un momento para seguir usando.';
+      }
+    }
+    document.getElementById('lockTitulo').textContent = titulo;
+    document.getElementById('lockMsg').textContent = msg;
+    document.getElementById('lockScreen').classList.toggle('hidden', !bloquear);
+    var v = 'Versi\u00f3n ' + APP_VERSION;
+    if (e && e.ts) { var d = new Date(e.ts); v += ' \u2022 verificada ' + pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+    else v += ' \u2022 sin verificar';
+    document.getElementById('verApp').textContent = v;
+  }
+  function verificarEstado(manual) {
+    if (!window.fetch) { aplicarEstado(); return; }
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var t = setTimeout(function () { if (ctrl) ctrl.abort(); }, 6000);
+    fetch('estado.json?t=' + Date.now(), { cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) { clearTimeout(t); if (!r.ok) throw new Error('http'); return r.json(); })
+      .then(function (j) {
+        var off = (j.activa === false || j.activa === 'false' || j.activa === 0);
+        guardarEstado({ activa: !off, mensaje: String(j.mensaje || ''), maxDias: Number(j.diasMaxSinConexion) || 0, ts: Date.now() });
+        aplicarEstado();
+        if (manual) { if (off) showToast('Sigue desactivada'); else showToast('Verificado \u2713'); }
+      })
+      .catch(function () {
+        clearTimeout(t);
+        aplicarEstado();
+        if (manual) alert('No se pudo verificar. Revis\u00e1 que tengas Internet e intent\u00e1 de nuevo.');
+      });
+  }
+  document.getElementById('btnLockReintentar').addEventListener('click', function () { verificarEstado(true); });
+  document.getElementById('btnLockExportar').addEventListener('click', function () { exportRoutesToCsv(loadRoutes(), 'rutas_todas'); });
+  window.addEventListener('online', function () { verificarEstado(false); });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) verificarEstado(false); });
+  setInterval(function () { if (!document.hidden) verificarEstado(false); }, 10 * 60 * 1000);
+
+  // ---------- init ----------
+  var session = loadSession();
+  if (session && session.routeId && getRoute(session.routeId)) {
+    appAbrirRuta(session.routeId);
+    if (session.tab === 'recorrido' || session.tab === 'mapa') { setTab(session.tab); renderRoute(); }
+  } else {
+    renderHome();
+  }
+  aplicarEstado();
+  verificarEstado(false);
+  if (!getLecturista()) abrirModalNombre(true);
+  startGpsWatch();
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('sw.js').catch(function () {});
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
