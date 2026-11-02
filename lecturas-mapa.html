@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Lecturas en mapa</title>
+<style>
+  :root { --bg:#121212; --card:#1e1e1e; --card2:#262626; --amber:#ffb300; --green:#4caf50; --red:#e53935; --blue:#42a5f5; --orange:#ff7043; --gray:#2f2f2f; --text:#f0f0f0; --dim:#9a9a9a; --border:#333; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; padding-bottom:40px; }
+  header { background:linear-gradient(135deg,#1a1a1a,#222); border-bottom:3px solid var(--amber); padding:12px 16px; position:sticky; top:0; z-index:10; display:flex; align-items:center; gap:10px; }
+  header .back { background:none; border:none; color:var(--amber); font-size:22px; padding:0 6px 0 0; }
+  header .titles { flex:1; text-align:center; }
+  header h1 { margin:0; font-size:17px; color:var(--amber); }
+  header .sub { font-size:12px; color:var(--dim); margin-top:2px; }
+  .container { max-width:560px; margin:0 auto; padding:12px; }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; margin-bottom:12px; }
+  label { display:block; font-size:13px; color:var(--dim); margin:10px 0 6px; }
+  label:first-child { margin-top:0; }
+  input, select, textarea { width:100%; background:var(--card2); border:1px solid var(--border); color:var(--text); padding:12px; border-radius:8px; font-size:16px; font-family:inherit; }
+  input:focus, select:focus { outline:none; border-color:var(--amber); }
+  .row { display:flex; gap:8px; align-items:center; }
+  .row > * { flex:1; }
+  .btn-main { width:100%; background:var(--amber); color:#1a1a1a; border:none; padding:14px; border-radius:8px; font-size:15px; font-weight:bold; margin-top:12px; }
+  .btn-sec { width:100%; background:var(--card2); color:var(--text); border:1px solid var(--border); padding:12px; border-radius:8px; font-size:14px; margin-top:8px; }
+  .btn-sec.red { border-color:var(--red); color:var(--red); }
+  .btn-small { background:var(--card2); color:var(--amber); border:1px solid var(--amber); border-radius:6px; padding:8px 10px; font-size:13px; white-space:nowrap; flex:0 0 auto; }
+  .estado { font-size:13px; background:var(--card2); border-left:4px solid #888; padding:8px 10px; border-radius:8px; margin-top:10px; }
+  .estado.ok { border-left-color:var(--green); }
+  .estado.err { border-left-color:var(--red); }
+  .prog { font-size:14px; }
+  .ruta { background:var(--card); border:1px solid var(--border); border-left:4px solid var(--amber); border-radius:12px; padding:14px; margin-bottom:10px; display:flex; align-items:center; justify-content:space-between; }
+  .ruta .nom { font-size:16px; font-weight:bold; color:var(--amber); }
+  .ruta .meta { font-size:12px; color:var(--dim); margin-top:3px; }
+  .ruta .del { background:none; border:none; color:var(--red); font-size:18px; padding:6px; }
+  .empty { text-align:center; color:var(--dim); padding:24px 10px; font-size:13px; }
+  .siguiente { border-left:4px solid var(--blue); }
+  .siguiente .s1 { font-size:16px; font-weight:bold; color:var(--blue); }
+  .siguiente .s2 { font-size:14px; color:var(--text); margin-top:4px; }
+  .tabs { display:flex; gap:8px; margin-bottom:10px; }
+  .tab { flex:1; background:var(--card2); border:1px solid var(--border); color:var(--dim); padding:10px; border-radius:8px; font-weight:bold; font-size:14px; }
+  .tab.active { background:var(--amber); color:#1a1a1a; border-color:var(--amber); }
+  .mapwrap { position:relative; width:100%; height:60vh; min-height:340px; background:#1b2029; border-radius:12px; overflow:hidden; border:1px solid var(--border); }
+  .mapctrl { position:absolute; right:8px; top:8px; z-index:5; display:flex; flex-direction:column; gap:4px; }
+  .mapctrl button { width:42px; height:42px; border:1px solid var(--border); background:rgba(30,30,30,.95); color:var(--text); font-size:20px; font-weight:bold; border-radius:8px; }
+  .mapctrl button:active { background:var(--amber); color:#1a1a1a; }
+  .leyenda { font-size:12px; color:var(--dim); margin:8px 2px 0; display:flex; flex-wrap:wrap; gap:10px; }
+  .leyenda span i { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle; }
+  .calle { background:var(--card); border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; }
+  .calle.activa { border-color:var(--amber); }
+  .calle .ch { background:var(--card2); padding:10px 12px; display:flex; justify-content:space-between; align-items:center; }
+  .calle .tag { font-size:11px; color:var(--amber); font-weight:bold; }
+  .pt { display:flex; align-items:center; gap:10px; padding:10px 12px; border-top:1px solid var(--border); }
+  .pt .ord { font-size:12px; color:var(--dim); width:28px; flex-shrink:0; }
+  .pt .dot { width:12px; height:12px; border-radius:50%; flex-shrink:0; }
+  .pt .rp { flex:1; font-size:14px; min-width:0; }
+  .pt .det { font-size:11px; color:var(--dim); margin-top:2px; }
+  .modal { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.8); z-index:60; display:flex; align-items:flex-end; justify-content:center; }
+  .box { background:var(--card); border-top:3px solid var(--amber); border-radius:16px 16px 0 0; padding:16px; width:100%; max-width:560px; max-height:88vh; overflow-y:auto; }
+  .ptitle { font-size:20px; font-weight:bold; color:var(--amber); }
+  .psub { font-size:13px; color:var(--dim); margin-top:4px; }
+  .badge-est { display:inline-block; margin-top:10px; padding:6px 10px; border-radius:6px; color:#101010; font-weight:bold; font-size:13px; }
+  .acciones { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px; }
+  .acciones button { padding:14px 8px; border:none; border-radius:8px; font-weight:bold; font-size:14px; background:var(--card2); color:var(--text); border:1px solid var(--border); }
+  .acciones .ok { background:var(--green); color:#0d0d0d; border:none; }
+  .acciones .cam { background:var(--blue); color:#0d0d0d; border:none; }
+  .acciones .ret { background:var(--red); color:#fff; border:none; }
+  .acciones .sin { background:var(--orange); color:#0d0d0d; border:none; }
+  .acciones .sec { color:var(--text); }
+  .acciones .red { color:var(--red); }
+  .hist { font-size:12px; color:var(--dim); margin-top:12px; line-height:1.7; }
+  .hidden { display:none !important; }
+  .toast { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:var(--green); color:#0d0d0d; padding:10px 20px; border-radius:20px; font-size:14px; font-weight:bold; opacity:0; pointer-events:none; transition:opacity .25s; z-index:70; }
+  .toast.show { opacity:1; }
+  .firma { margin:24px 0 8px; text-align:center; font-size:11px; color:var(--dim); opacity:.75; }
+</style>
+</head>
+<body>
+
+<header>
+  <button class="back hidden" id="btnVolver" data-act="volver">&larr;</button>
+  <div class="titles">
+    <h1 id="titulo">Lecturas en mapa</h1>
+    <div class="sub" id="sub"></div>
+  </div>
+  <div style="width:28px"></div>
+</header>
+
+<div class="container">
+
+  <!-- INICIO -->
+  <div id="vInicio">
+    <div class="card">
+      <label for="inpRuta">Nueva ruta</label>
+      <input type="text" id="inpRuta" placeholder="Ej: Zona Norte GU" autocomplete="off">
+      <button class="btn-main" data-act="crear-ruta">Crear ruta</button>
+    </div>
+    <div id="listaRutas"></div>
+  </div>
+
+  <!-- RUTA -->
+  <div id="vRuta" class="hidden">
+    <div class="card">
+      <label for="inpPeriodo">Período que estás leyendo</label>
+      <input type="month" id="inpPeriodo">
+      <div class="prog" id="progreso" style="margin-top:10px;"></div>
+      <div class="estado" id="gpsEstado">Buscando GPS…</div>
+    </div>
+
+    <div class="card siguiente" id="cardSiguiente" data-act="" data-v=""></div>
+
+    <div class="tabs">
+      <button class="tab active" id="tabMapa" data-act="tab" data-v="mapa">Mapa</button>
+      <button class="tab" id="tabLista" data-act="tab" data-v="lista">Lista</button>
+    </div>
+
+    <div id="vMapa">
+      <div class="mapwrap" id="mapaBox">
+        <div class="mapctrl">
+          <button data-act="zoom" data-v="1">+</button>
+          <button data-act="zoom" data-v="-1">&minus;</button>
+          <button data-act="ver-todo" title="Ver todos">&#9635;</button>
+          <button data-act="yo" title="Mi ubicación">&#8982;</button>
+        </div>
+      </div>
+      <div class="leyenda">
+        <span><i style="background:#ffb300"></i>Pendiente</span>
+        <span><i style="background:#4caf50"></i>Leído</span>
+        <span><i style="background:#42a5f5"></i>Cambió medidor</span>
+        <span><i style="background:#e53935"></i>Retirado</span>
+        <span><i style="background:#ff7043"></i>Sin acceso</span>
+      </div>
+    </div>
+
+    <div id="vLista" class="hidden">
+      <div id="listaCalles"></div>
+
+      <div class="card">
+        <label for="inpCalle">Nueva calle o barrio</label>
+        <div class="row">
+          <input type="text" id="inpCalle" placeholder="Ej: Belgrano" autocomplete="off">
+          <button class="btn-small" data-act="nueva-calle">Iniciar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <label for="selTipo">Tipo de punto</label>
+        <select id="selTipo"><option>Medidor</option><option>SED</option></select>
+        <label for="inpNumero">Número</label>
+        <input type="text" id="inpNumero" inputmode="numeric" autocomplete="off">
+        <label for="inpNotas">Notas (opcional)</label>
+        <input type="text" id="inpNotas" autocomplete="off">
+        <button class="btn-main" data-act="agregar">Agregar punto en mi ubicación</button>
+      </div>
+
+      <button class="btn-sec red" data-act="borrar-ruta" data-v="">Eliminar esta ruta</button>
+    </div>
+  </div>
+
+  <div class="firma">Desarrollado por Pablo Gabriel Quintana Godoy</div>
+</div>
+
+<div class="modal hidden" id="modal"><div class="box" id="boxPanel"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+var KEY = 'lecturas_mapa_v1';
+var db = { rutas: [], periodo: '' };
+var rutaId = null, tab = 'mapa', gps = null, selId = null, M = null;
+var COL = { pendiente: '#ffb300', leido: '#4caf50', cambiado: '#42a5f5', retirado: '#e53935', sin_acceso: '#ff7043' };
+var TXT = { pendiente: 'Pendiente', leido: 'Leído', cambiado: 'Medidor cambiado', retirado: 'Retirado', sin_acceso: 'Sin acceso' };
+
+function $(id) { return document.getElementById(id); }
+function pad(n) { return n < 10 ? '0' + n : '' + n; }
+function uid() { return 'i' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5); }
+function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+function periodoHoy() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1); }
+function fmt(ts) { var d = new Date(ts); return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + ' ' + pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+function cargar() {
+  try { var x = JSON.parse(localStorage.getItem(KEY) || 'null'); if (x) db = x; } catch (e) {}
+  if (!db.periodo) db.periodo = periodoHoy();
+}
+function guardar() { localStorage.setItem(KEY, JSON.stringify(db)); }
+function toast(m) { var t = $('toast'); t.textContent = m; t.className = 'toast show'; setTimeout(function () { t.className = 'toast'; }, 1400); }
+
+function ruta() { for (var i = 0; i < db.rutas.length; i++) if (db.rutas[i].id === rutaId) return db.rutas[i]; return null; }
+function puntosDe(r) {
+  var out = [];
+  for (var i = 0; i < r.calles.length; i++) for (var j = 0; j < r.calles[i].puntos.length; j++) out.push({ c: r.calles[i], p: r.calles[i].puntos[j] });
+  return out;
+}
+function buscarPunto(r, id) {
+  if (!r) return null;
+  var all = puntosDe(r);
+  for (var i = 0; i < all.length; i++) if (all[i].p.id === id) return all[i];
+  return null;
+}
+function estadoDe(p) { return (p.estados && p.estados[db.periodo]) || 'pendiente'; }
+
+// ---------- geo ----------
+function dist(a, b) {
+  var R = 6371000, k = Math.PI / 180;
+  var dla = (b.lat - a.lat) * k, dlo = (b.lon - a.lon) * k;
+  var x = Math.sin(dla / 2) * Math.sin(dla / 2) + Math.cos(a.lat * k) * Math.cos(b.lat * k) * Math.sin(dlo / 2) * Math.sin(dlo / 2);
+  return 2 * R * Math.atan2(Math.sqrt(x), Math.sqrt(1 - x));
+}
+function rumbo(a, b) {
+  var k = Math.PI / 180;
+  var y = Math.sin((b.lon - a.lon) * k) * Math.cos(b.lat * k);
+  var x = Math.cos(a.lat * k) * Math.sin(b.lat * k) - Math.sin(a.lat * k) * Math.cos(b.lat * k) * Math.cos((b.lon - a.lon) * k);
+  return (Math.atan2(y, x) / k + 360) % 360;
+}
+function cardinal(g) { var c = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO']; return c[Math.round(g / 45) % 8]; }
+
+// ---------- GPS silencioso ----------
+if (navigator.geolocation) {
+  navigator.geolocation.watchPosition(
+    function (p) {
+      gps = { lat: p.coords.latitude, lon: p.coords.longitude, acc: Math.round(p.coords.accuracy) };
+      actualizarGps(true);
+    },
+    function (e) { gps = null; actualizarGps(false, e.message); },
+    { enableHighAccuracy: true, maximumAge: 0 }
+  );
+} else {
+  actualizarGps(false, 'este navegador no tiene GPS');
+}
+function actualizarGps(ok, msg) {
+  var g = $('gpsEstado');
+  if (ok) { g.className = 'estado ok'; g.textContent = 'GPS ±' + gps.acc + ' m'; }
+  else { g.className = 'estado err'; g.textContent = 'Sin GPS' + (msg ? ': ' + msg : ''); }
+  if (rutaId) {
+    var r = ruta();
+    if (r) renderSiguiente(r);
+    if (M) M.redibujar();
+  }
+}
+
+// ---------- render ----------
+function render() {
+  var r = rutaId ? ruta() : null;
+  if (rutaId && !r) rutaId = null;
+  $('vInicio').className = rutaId ? 'hidden' : '';
+  $('vRuta').className = rutaId ? '' : 'hidden';
+  $('btnVolver').className = rutaId ? 'back' : 'back hidden';
+
+  if (!rutaId) {
+    M = null;
+    $('titulo').textContent = 'Lecturas en mapa';
+    $('sub').textContent = '';
+    renderInicio();
+    return;
+  }
+  $('titulo').textContent = r.nombre;
+  $('sub').textContent = 'Período ' + db.periodo;
+  $('inpPeriodo').value = db.periodo;
+  renderProgreso(r);
+  renderSiguiente(r);
+
+  $('vMapa').className = tab === 'mapa' ? '' : 'hidden';
+  $('vLista').className = tab === 'lista' ? '' : 'hidden';
+  $('tabMapa').className = 'tab' + (tab === 'mapa' ? ' active' : '');
+  $('tabLista').className = 'tab' + (tab === 'lista' ? ' active' : '');
+
+  if (tab === 'mapa') {
+    if (!M) { M = crearMapa($('mapaBox')); M.ajustar(); }
+    M.redibujar();
+  } else {
+    renderLista(r);
+  }
+}
+
+function renderInicio() {
+  var h = '';
+  if (!db.rutas.length) h = '<div class="empty">Creá una ruta para empezar.</div>';
+  for (var i = db.rutas.length - 1; i >= 0; i--) {
+    var r = db.rutas[i], all = puntosDe(r), hechos = 0;
+    for (var k = 0; k < all.length; k++) if (estadoDe(all[k].p) !== 'pendiente') hechos++;
+    h += '<div class="ruta" data-act="abrir-ruta" data-v="' + r.id + '">';
+    h += '<div><div class="nom">' + esc(r.nombre) + '</div>';
+    h += '<div class="meta">' + hechos + ' de ' + all.length + ' hechos en ' + db.periodo + '</div></div>';
+    h += '<button class="del" data-act="borrar-ruta" data-v="' + r.id + '">✕</button></div>';
+  }
+  $('listaRutas').innerHTML = h;
+}
+
+function renderProgreso(r) {
+  var all = puntosDe(r), hechos = 0;
+  for (var i = 0; i < all.length; i++) if (estadoDe(all[i].p) !== 'pendiente') hechos++;
+  $('progreso').innerHTML = '<b>' + hechos + ' de ' + all.length + '</b> hechos · ' + (all.length - hechos) + ' pendientes';
+}
+
+function renderSiguiente(r) {
+  var card = $('cardSiguiente');
+  var all = puntosDe(r);
+  var pend = all.filter(function (x) { return estadoDe(x.p) === 'pendiente'; });
+  if (!all.length) { card.innerHTML = 'Agregá puntos desde la pestaña Lista.'; card.removeAttribute('data-act'); return; }
+  if (!pend.length) { card.innerHTML = '<b>Ruta completa para ' + db.periodo + ' ✓</b>'; card.removeAttribute('data-act'); return; }
+
+  var elegido = pend[0];
+  if (gps) {
+    var mejor = Infinity;
+    for (var i = 0; i < pend.length; i++) {
+      var d = dist(gps, pend[i].p);
+      if (d < mejor) { mejor = d; elegido = pend[i]; }
+    }
+    var br = rumbo(gps, elegido.p);
+    card.innerHTML = '<div class="s1">Siguiente: N° ' + esc(elegido.p.numero) + '</div>' +
+      '<div class="s2">' + esc(elegido.c.nombre) + ' · a ' + Math.round(mejor) + ' m · ' + cardinal(br) + ' (' + Math.round(br) + '°)</div>';
+  } else {
+    card.innerHTML = '<div class="s1">Siguiente: N° ' + esc(elegido.p.numero) + '</div>' +
+      '<div class="s2">' + esc(elegido.c.nombre) + ' · activá el GPS para ver la distancia</div>';
+  }
+  card.setAttribute('data-act', 'panel');
+  card.setAttribute('data-v', elegido.p.id);
+}
+
+function renderLista(r) {
+  var h = '', n = 0;
+  if (!r.calles.length) h = '<div class="empty">Todavía no hay calles. Iniciá una abajo.</div>';
+  for (var i = 0; i < r.calles.length; i++) {
+    var c = r.calles[i], activa = (c.id === r.activa);
+    h += '<div class="calle' + (activa ? ' activa' : '') + '"><div class="ch"><b>' + esc(c.nombre) + '</b>';
+    h += activa ? '<span class="tag">EN CURSO</span>' : '<button class="btn-small" data-act="reabrir" data-v="' + c.id + '">Reabrir</button>';
+    h += '</div>';
+    for (var j = 0; j < c.puntos.length; j++) {
+      var p = c.puntos[j], est = estadoDe(p);
+      n++;
+      h += '<div class="pt" data-act="panel" data-v="' + p.id + '">';
+      h += '<div class="ord">' + n + '</div>';
+      h += '<span class="dot" style="background:' + COL[est] + '"></span>';
+      h += '<div class="rp"><b>' + esc(p.tipo) + ' ' + esc(p.numero) + '</b>' + (p.notas ? ' · ' + esc(p.notas) : '');
+      h += '<div class="det">' + TXT[est] + '</div></div></div>';
+    }
+    if (!c.puntos.length) h += '<div class="empty" style="padding:10px;">Sin puntos todavía.</div>';
+    h += '</div>';
+  }
+  $('listaCalles').innerHTML = h;
+}
+
+// ---------- mapa propio (canvas, funciona sin Internet; OSM si hay conexión) ----------
+function crearMapa(box) {
+  var viejos = box.getElementsByTagName('canvas');
+  while (viejos.length) box.removeChild(viejos[0]);
+  var cv = document.createElement('canvas');
+  cv.style.cssText = 'position:absolute;left:0;top:0;width:100%;height:100%;touch-action:none;';
+  box.insertBefore(cv, box.firstChild);
+  var ctx = cv.getContext('2d');
+  var W = 0, H = 0, dpr = 1, pins = [], tiles = {};
+  var st = { lat: -27.47, lon: -58.83, z: 17 };
+
+  function X(lon, z) { return (lon + 180) / 360 * 256 * Math.pow(2, z); }
+  function Y(lat, z) { var s = Math.sin(lat * Math.PI / 180); return (0.5 - Math.log((1 + s) / (1 - s)) / (4 * Math.PI)) * 256 * Math.pow(2, z); }
+  function LON(x, z) { return x / (256 * Math.pow(2, z)) * 360 - 180; }
+  function LAT(y, z) { var n = Math.PI - 2 * Math.PI * y / (256 * Math.pow(2, z)); return 180 / Math.PI * Math.atan(0.5 * (Math.exp(n) - Math.exp(-n))); }
+  function P(lat, lon) { return { x: W / 2 + X(lon, st.z) - X(st.lon, st.z), y: H / 2 + Y(lat, st.z) - Y(st.lat, st.z) }; }
+  function inv(x, y) { var z = st.z; return { lat: LAT(Y(st.lat, z) + (y - H / 2), z), lon: LON(X(st.lon, z) + (x - W / 2), z) }; }
+  function medir() { W = box.clientWidth; H = box.clientHeight; dpr = window.devicePixelRatio || 1; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); }
+  function tile(z, x, y) {
+    var k = z + '/' + x + '/' + y;
+    if (!tiles[k]) {
+      var im = new Image();
+      im.onload = function () { redibujar(); };
+      im.src = 'https://tile.openstreetmap.org/' + k + '.png';
+      tiles[k] = im;
+    }
+    return tiles[k];
+  }
+  function fondo() {
+    ctx.fillStyle = '#1b2029'; ctx.fillRect(0, 0, W, H);
+    var z = Math.round(st.z), sc = Math.pow(2, st.z - z), n = Math.pow(2, z);
+    var cx = X(st.lon, z), cy = Y(st.lat, z);
+    var x0 = cx - (W / 2) / sc, y0 = cy - (H / 2) / sc;
+    var tx0 = Math.floor(x0 / 256), ty0 = Math.floor(y0 / 256);
+    var tx1 = Math.floor((x0 + W / sc) / 256), ty1 = Math.floor((y0 + H / sc) / 256);
+    var hay = false;
+    for (var tx = tx0; tx <= tx1; tx++) {
+      for (var ty = ty0; ty <= ty1; ty++) {
+        if (ty < 0 || ty >= n) continue;
+        var im = tile(z, ((tx % n) + n) % n, ty);
+        if (im.complete && im.naturalWidth) {
+          ctx.drawImage(im, (tx * 256 - x0) * sc, (ty * 256 - y0) * sc, 256 * sc + 1, 256 * sc + 1);
+          hay = true;
+        }
+      }
+    }
+    if (!hay) {
+      ctx.strokeStyle = '#262d3a'; ctx.lineWidth = 1; ctx.beginPath();
+      var paso = 60, ox = (W / 2 - X(st.lon, st.z)) % paso, oy = (H / 2 - Y(st.lat, st.z)) % paso;
+      for (var gx = ox; gx < W; gx += paso) { ctx.moveTo(gx, 0); ctx.lineTo(gx, H); }
+      for (var gy = oy; gy < H; gy += paso) { ctx.moveTo(0, gy); ctx.lineTo(W, gy); }
+      ctx.stroke();
+    }
+    ctx.fillStyle = 'rgba(255,255,255,.6)'; ctx.font = '10px sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText('© OpenStreetMap', W - 4, H - 4);
+  }
+  function redibujar() {
+    medir();
+    if (!W || !H) return;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    fondo();
+    pins = [];
+    var r = ruta();
+    if (r) {
+      var all = puntosDe(r), i, q;
+      if (all.length > 1) {
+        ctx.beginPath();
+        for (i = 0; i < all.length; i++) {
+          q = P(all[i].p.lat, all[i].p.lon);
+          if (i === 0) ctx.moveTo(q.x, q.y); else ctx.lineTo(q.x, q.y);
+        }
+        ctx.strokeStyle = 'rgba(255,255,255,.4)'; ctx.lineWidth = 3; ctx.stroke();
+      }
+      for (i = 0; i < all.length; i++) {
+        var pt = all[i].p, est = estadoDe(pt), sel = (pt.id === selId);
+        q = P(pt.lat, pt.lon);
+        ctx.beginPath(); ctx.arc(q.x, q.y, sel ? 15 : 11, 0, 2 * Math.PI);
+        ctx.fillStyle = COL[est]; ctx.fill();
+        ctx.lineWidth = sel ? 3 : 2; ctx.strokeStyle = '#fff'; ctx.stroke();
+        ctx.fillStyle = '#101010'; ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(String(i + 1), q.x, q.y + 0.5);
+        pins.push({ x: q.x, y: q.y, id: pt.id });
+      }
+    }
+    if (gps) {
+      var g = P(gps.lat, gps.lon);
+      var mpp = 156543.03392 * Math.cos(gps.lat * Math.PI / 180) / Math.pow(2, st.z);
+      var rad = Math.max(6, Math.min(80, gps.acc / mpp));
+      ctx.beginPath(); ctx.arc(g.x, g.y, rad, 0, 2 * Math.PI); ctx.fillStyle = 'rgba(66,165,245,.18)'; ctx.fill();
+      ctx.beginPath(); ctx.arc(g.x, g.y, 7, 0, 2 * Math.PI); ctx.fillStyle = '#42a5f5'; ctx.fill();
+      ctx.lineWidth = 3; ctx.strokeStyle = '#fff'; ctx.stroke();
+    }
+  }
+  function ajustar() {
+    var r = ruta(), lats = [], lons = [];
+    if (r) { var all = puntosDe(r); for (var i = 0; i < all.length; i++) { lats.push(all[i].p.lat); lons.push(all[i].p.lon); } }
+    if (gps) { lats.push(gps.lat); lons.push(gps.lon); }
+    if (!lats.length) { redibujar(); return; }
+    var a = Math.min.apply(null, lats), b = Math.max.apply(null, lats);
+    var c = Math.min.apply(null, lons), d = Math.max.apply(null, lons);
+    st.lat = (a + b) / 2; st.lon = (c + d) / 2;
+    medir();
+    var w = W || 300, h = H || 300, z;
+    for (z = 18; z > 3; z--) {
+      var xs = X(d, z) - X(c, z), ys = Y(a, z) - Y(b, z);
+      if (xs < w - 60 && ys < h - 60) break;
+    }
+    st.z = z;
+    redibujar();
+  }
+  function zoom(dz) { st.z = Math.max(3, Math.min(19, st.z + dz)); redibujar(); }
+  function yo() { if (!gps) { toast('Sin GPS todavía'); return; } st.lat = gps.lat; st.lon = gps.lon; if (st.z < 17) st.z = 17; redibujar(); }
+
+  var drag = null;
+  cv.addEventListener('pointerdown', function (e) {
+    drag = { x: e.clientX, y: e.clientY, m: 0 };
+    try { cv.setPointerCapture(e.pointerId); } catch (x) {}
+  });
+  cv.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    drag.m += Math.abs(dx) + Math.abs(dy);
+    drag.x = e.clientX; drag.y = e.clientY;
+    if (drag.m < 4) return;
+    var c = inv(W / 2 - dx, H / 2 - dy);
+    st.lat = c.lat; st.lon = c.lon;
+    redibujar();
+  });
+  cv.addEventListener('pointerup', function (e) {
+    if (!drag) return;
+    var was = drag; drag = null;
+    if (was.m < 8) {
+      var rc = cv.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top;
+      for (var i = pins.length - 1; i >= 0; i--) {
+        var q = pins[i];
+        if ((x - q.x) * (x - q.x) + (y - q.y) * (y - q.y) <= 18 * 18) { abrirPanel(q.id); return; }
+      }
+    }
+  });
+  cv.addEventListener('pointercancel', function () { drag = null; });
+  cv.addEventListener('wheel', function (e) { e.preventDefault(); zoom(e.deltaY < 0 ? 1 : -1); }, { passive: false });
+
+  return { redibujar: redibujar, ajustar: ajustar, zoom: zoom, yo: yo };
+}
+
+window.addEventListener('resize', function () { if (M) M.redibujar(); });
+
+// ---------- panel de punto ----------
+function abrirPanel(id) {
+  var r = ruta();
+  var f = buscarPunto(r, id);
+  if (!f) return;
+  selId = id;
+  var p = f.p, est = estadoDe(p);
+  var h = '<div class="ptitle">' + esc(p.tipo) + ' N° ' + esc(p.numero) + '</div>';
+  h += '<div class="psub">' + esc(f.c.nombre) + ' · ' + (gps ? Math.round(dist(gps, p)) + ' m de vos' : 'sin GPS') + '</div>';
+  h += '<span class="badge-est" style="background:' + COL[est] + '">' + TXT[est] + '</span>';
+  h += '<div class="acciones">';
+  if (est === 'pendiente') {
+    h += '<button class="ok" data-act="estado" data-v="leido">Leído</button>';
+    h += '<button class="cam" data-act="ver-cambio">Cambió medidor</button>';
+    h += '<button class="ret" data-act="estado" data-v="retirado">Retirado</button>';
+    h += '<button class="sin" data-act="estado" data-v="sin_acceso">Sin acceso</button>';
+  } else {
+    h += '<button class="sec" data-act="deshacer">Deshacer (' + TXT[est] + ')</button>';
+  }
+  h += '</div>';
+  h += '<div id="areaCambio" class="hidden"><label for="inpNuevo">Número del medidor nuevo</label>';
+  h += '<input type="text" id="inpNuevo" inputmode="numeric" autocomplete="off">';
+  h += '<button class="btn-main" data-act="confirmar-cambio">Guardar cambio</button></div>';
+
+  var hist = (p.historial || []).slice(-5).reverse();
+  if (hist.length) {
+    h += '<div class="hist"><b>Historial</b>';
+    for (var i = 0; i < hist.length; i++) {
+      var ev = hist[i];
+      h += '<div>' + fmt(ev.fecha) + ' · ' + TXT[ev.estado] + (ev.numeroNuevo ? ' → ' + esc(ev.numeroNuevo) : '') + (ev.dist != null ? ' · ' + ev.dist + ' m' : '') + '</div>';
+    }
+    h += '</div>';
+  }
+
+  h += '<label for="inpCorr">Corregir número</label>';
+  h += '<input type="text" id="inpCorr" value="' + esc(p.numero) + '" inputmode="numeric" autocomplete="off">';
+  h += '<div class="acciones">';
+  h += '<button class="sec" data-act="corregir">Guardar número</button>';
+  h += '<button class="sec red" data-act="borrar-punto">Borrar punto</button>';
+  h += '<button class="sec" data-act="cerrar-panel" style="grid-column:span 2">Cerrar</button>';
+  h += '</div>';
+
+  $('boxPanel').innerHTML = h;
+  $('modal').className = 'modal';
+  if (M) M.redibujar();
+}
+function cerrarPanel() { $('modal').className = 'modal hidden'; if (M) M.redibujar(); }
+
+function aplicarEstado(estado, nuevo) {
+  var r = ruta();
+  var f = buscarPunto(r, selId);
+  if (!f) return;
+  var p = f.p;
+  var dd = gps ? dist(gps, p) : null;
+  if (dd !== null && dd > 40 && !confirm('Estás a ' + Math.round(dd) + ' m del punto. ¿Registrar igual?')) return;
+  if (dd === null && !confirm('No hay GPS para verificar la ubicación. ¿Registrar igual?')) return;
+
+  if (!p.estados) p.estados = {};
+  p.estados[db.periodo] = estado;
+  var ev = { periodo: db.periodo, fecha: Date.now(), estado: estado, dist: dd === null ? null : Math.round(dd), lat: gps ? gps.lat : null, lon: gps ? gps.lon : null };
+  if (nuevo) { ev.numeroAnterior = p.numero; ev.numeroNuevo = nuevo; p.numero = nuevo; }
+  if (!p.historial) p.historial = [];
+  p.historial.push(ev);
+  guardar();
+  cerrarPanel();
+  toast(TXT[estado] + ' ✓');
+  render();
+}
+
+function deshacer() {
+  var f = buscarPunto(ruta(), selId);
+  if (!f) return;
+  var p = f.p, h = p.historial || [];
+  while (h.length && h[h.length - 1].periodo === db.periodo) {
+    var ev = h.pop();
+    if (ev.numeroAnterior !== undefined) p.numero = ev.numeroAnterior;
+  }
+  if (p.estados) delete p.estados[db.periodo];
+  guardar();
+  render();
+  abrirPanel(selId);
+}
+
+function agregarAqui(r) {
+  if (!gps) { alert('Todavía no hay GPS.'); return; }
+  var calle = null;
+  for (var i = 0; i < r.calles.length; i++) if (r.calles[i].id === r.activa) calle = r.calles[i];
+  if (!calle) { alert('Primero iniciá una calle o barrio.'); return; }
+  var num = $('inpNumero').value.trim();
+  if (!num) { alert('Ingresá el número.'); return; }
+  calle.puntos.push({
+    id: uid(), tipo: $('selTipo').value, numero: num,
+    lat: gps.lat, lon: gps.lon, acc: gps.acc,
+    notas: $('inpNotas').value.trim(), estados: {}, historial: [], ts: Date.now()
+  });
+  guardar();
+  $('inpNumero').value = '';
+  $('inpNotas').value = '';
+  render();
+  toast('Punto agregado ✓');
+}
+
+function act(a, v) {
+  var r = ruta();
+  switch (a) {
+    case 'crear-ruta':
+      var n = $('inpRuta').value.trim();
+      if (!n) { alert('Ingresá un nombre para la ruta.'); return; }
+      var nr = { id: uid(), nombre: n, calles: [], activa: null, fecha: Date.now() };
+      db.rutas.push(nr); guardar();
+      $('inpRuta').value = '';
+      rutaId = nr.id; M = null; tab = 'mapa';
+      render();
+      break;
+    case 'abrir-ruta':
+      rutaId = v; M = null; tab = 'mapa';
+      render();
+      break;
+    case 'volver':
+      rutaId = null; M = null;
+      render();
+      break;
+    case 'borrar-ruta':
+      var idb = v || rutaId;
+      if (!confirm('¿Eliminar la ruta con todos sus puntos e historial?')) return;
+      db.rutas = db.rutas.filter(function (x) { return x.id !== idb; });
+      guardar();
+      if (rutaId === idb) { rutaId = null; M = null; }
+      render();
+      break;
+    case 'tab':
+      tab = v; render();
+      break;
+    case 'zoom':
+      if (M) M.zoom(parseInt(v, 10));
+      break;
+    case 'ver-todo':
+      if (M) M.ajustar();
+      break;
+    case 'yo':
+      if (M) M.yo();
+      break;
+    case 'nueva-calle':
+      if (!r) return;
+      var cn = $('inpCalle').value.trim();
+      if (!cn) { alert('Ingresá la calle o el barrio.'); return; }
+      var c = { id: uid(), nombre: cn, puntos: [] };
+      r.calles.push(c); r.activa = c.id;
+      $('inpCalle').value = '';
+      guardar(); render();
+      break;
+    case 'reabrir':
+      if (!r) return;
+      r.activa = v; guardar(); render();
+      break;
+    case 'agregar':
+      if (r) agregarAqui(r);
+      break;
+    case 'panel':
+      abrirPanel(v);
+      break;
+    case 'estado':
+      aplicarEstado(v, null);
+      break;
+    case 'ver-cambio':
+      $('areaCambio').className = '';
+      $('inpNuevo').focus();
+      break;
+    case 'confirmar-cambio':
+      var nn = $('inpNuevo').value.trim();
+      if (!nn) { alert('Ingresá el número del medidor nuevo.'); return; }
+      aplicarEstado('cambiado', nn);
+      break;
+    case 'deshacer':
+      deshacer();
+      break;
+    case 'corregir':
+      var nc = $('inpCorr').value.trim();
+      if (!nc) { alert('El número no puede quedar vacío.'); return; }
+      var fc = buscarPunto(r, selId);
+      if (!fc) return;
+      fc.p.numero = nc; guardar(); render(); abrirPanel(selId);
+      break;
+    case 'borrar-punto':
+      if (!confirm('¿Borrar este punto y su historial?')) return;
+      var fb = buscarPunto(r, selId);
+      if (!fb) return;
+      fb.c.puntos.splice(fb.c.puntos.indexOf(fb.p), 1);
+      guardar(); cerrarPanel(); render();
+      break;
+    case 'cerrar-panel':
+      cerrarPanel();
+      break;
+  }
+}
+
+document.addEventListener('click', function (e) {
+  var t = e.target;
+  while (t && t !== document) {
+    if (t.getAttribute && t.getAttribute('data-act') !== null && t.getAttribute('data-act') !== '') break;
+    t = t.parentNode;
+  }
+  if (!t || t === document) return;
+  act(t.getAttribute('data-act'), t.getAttribute('data-v'));
+});
+
+$('inpPeriodo').onchange = function () {
+  if (!this.value) return;
+  db.periodo = this.value;
+  guardar();
+  M = M; render();
+};
+
+cargar();
+render();
+</script>
+</body>
+</html>
