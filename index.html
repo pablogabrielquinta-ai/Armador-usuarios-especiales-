@@ -282,9 +282,15 @@
 
     <div id="listaRutas"></div>
 
-    <div class="btn-row" id="homeExportRow" style="display:none;">
-      <button class="btn-sec amber" id="btnExportTodas">&#128190; Exportar todas a Excel</button>
+    <div class="btn-row" id="homeExportRow" style="display:none;flex-wrap:wrap;">
+      <button class="btn-sec amber" id="btnExportTodas" style="flex:1 1 100%;">&#128190; Exportar todas a Excel</button>
+      <button class="btn-sec green" id="btnBaseGuardar" style="flex:1 1 45%;">&#128205; Guardar base de puntos</button>
+      <button class="btn-sec green" id="btnKml" style="flex:1 1 45%;">&#127757; Exportar KML</button>
     </div>
+    <div class="btn-row" style="margin-top:8px;">
+      <button class="btn-sec" id="btnBaseAbrir">&#128194; Abrir base de puntos</button>
+    </div>
+    <input type="file" id="inpBase" accept=".json,application/json" style="display:none;">
   </div>
 
   <!-- ===== PANTALLA RUTA ===== -->
@@ -428,7 +434,7 @@
 
 <script>
 (function () {
-  var APP_VERSION = '2';   // mantener igual que CACHE_NAME en sw.js
+  var APP_VERSION = '3';   // mantener igual que CACHE_NAME en sw.js
   var STORAGE_KEY = 'dpec_ue_rutas_v1';
   var NOMBRE_KEY = 'dpec_ue_lecturista';
   function getLecturista() { try { return (localStorage.getItem(NOMBRE_KEY) || '').trim(); } catch (e) { return ''; } }
@@ -1008,6 +1014,91 @@
     }
     mapaHome.setCapas(capas, sinRuta ? (sinRuta + (sinRuta === 1 ? ' ruta sin ubicaciones' : ' rutas sin ubicaciones')) : '');
   }
+
+  // ---------- base de puntos (guardar / abrir / KML) ----------
+  function entregarArchivo(texto, nombre, mime, titulo) {
+    var file = new File([texto], nombre, { type: mime });
+    if (navigator.canShare && navigator.share && navigator.canShare({ files: [file] })) {
+      navigator.share({ files: [file], title: titulo, text: titulo }).catch(function (err) {
+        if (err && err.name === 'AbortError') return;
+        alert('No se pudo compartir: ' + (err && err.message ? err.message : err));
+      });
+    } else {
+      var url = URL.createObjectURL(new Blob([texto], { type: mime }));
+      var a = document.createElement('a');
+      a.href = url; a.download = nombre;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+      alert('Se descarg\u00f3 el archivo en Descargas.');
+    }
+  }
+  function conPuntos(routes) {
+    var n = 0;
+    for (var r = 0; r < routes.length; r++) n += puntosDeRuta(routes[r]).pts.length;
+    return n;
+  }
+  document.getElementById('btnBaseGuardar').addEventListener('click', function () {
+    var routes = loadRoutes();
+    if (!totalMedidoresTodas(routes)) { alert('Todav\u00eda no hay usuarios cargados.'); return; }
+    var base = { app: 'dpec_ue', version: 1, exportado: Date.now(), lecturista: getLecturista(), rutas: routes };
+    entregarArchivo(JSON.stringify(base), 'base_puntos_UE_' + stamp() + '.json', 'application/json', 'Base de puntos - Usuarios Especiales');
+  });
+  function totalMedidoresTodas(routes) { var n = 0; for (var i = 0; i < routes.length; i++) n += totalMedidores(routes[i]); return n; }
+  function xmlEsc(t) { return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  document.getElementById('btnKml').addEventListener('click', function () {
+    var routes = loadRoutes();
+    if (!conPuntos(routes)) { alert('Todav\u00eda no hay usuarios con ubicaci\u00f3n.'); return; }
+    var k = '<?xml version="1.0" encoding="UTF-8"?>\n<kml xmlns="http://www.opengis.net/kml/2.2"><Document><name>Usuarios Especiales</name>\n';
+    for (var r = 0; r < routes.length; r++) {
+      var d = puntosDeRuta(routes[r]);
+      if (!d.pts.length) continue;
+      k += '<Folder><name>' + xmlEsc(routes[r].numero) + '</name>\n';
+      var line = [];
+      for (var i = 0; i < d.pts.length; i++) {
+        var q = d.pts[i];
+        line.push(q.lon + ',' + q.lat + ',0');
+        k += '<Placemark><name>' + xmlEsc(pad3(q.n) + ' - IC ' + (q.ic || '-') + ' - Med ' + q.med) + '</name><description>' +
+          xmlEsc('IC: ' + (q.ic || '-') + '\nMedidor: ' + q.med + (q.modulo ? '\nM\u00f3dulo: ' + q.modulo : '') + '\nCalle: ' + q.calle + '\nZona: ' + routes[r].numero) +
+          '</description><Point><coordinates>' + q.lon + ',' + q.lat + ',0</coordinates></Point></Placemark>\n';
+      }
+      k += '<Placemark><name>Recorrido ' + xmlEsc(routes[r].numero) + '</name><Style><LineStyle><color>ff00b3ff</color><width>4</width></LineStyle></Style><LineString><tessellate>1</tessellate><coordinates>' + line.join(' ') + '</coordinates></LineString></Placemark>\n</Folder>\n';
+    }
+    k += '</Document></kml>';
+    entregarArchivo(k, 'puntos_UE_' + stamp() + '.kml', 'application/vnd.google-earth.kml+xml', 'Puntos - Usuarios Especiales');
+  });
+  document.getElementById('btnBaseAbrir').addEventListener('click', function () { document.getElementById('inpBase').click(); });
+  document.getElementById('inpBase').addEventListener('change', function (e) {
+    var f = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if (!f) return;
+    var rd = new FileReader();
+    rd.onload = function () {
+      var base;
+      try { base = JSON.parse(rd.result); } catch (x) { alert('Ese archivo no es una base de puntos v\u00e1lida.'); return; }
+      if (!base || !base.rutas || !base.rutas.length) { alert('Ese archivo no es una base de puntos v\u00e1lida.'); return; }
+      var routes = loadRoutes(), nuevos = 0, rutasNuevas = 0;
+      for (var a = 0; a < base.rutas.length; a++) {
+        var rin = base.rutas[a], rex = null;
+        if (!rin || !rin.id || !rin.calles) continue;
+        for (var b = 0; b < routes.length; b++) { if (routes[b].id === rin.id) rex = routes[b]; }
+        if (!rex) { routes.push(rin); rutasNuevas++; nuevos += totalMedidores(rin); continue; }
+        for (var c = 0; c < rin.calles.length; c++) {
+          var cin = rin.calles[c], cex = null;
+          for (var d = 0; d < rex.calles.length; d++) { if (rex.calles[d].id === cin.id) cex = rex.calles[d]; }
+          if (!cex) { rex.calles.push(cin); nuevos += cin.medidores.length; continue; }
+          for (var m = 0; m < cin.medidores.length; m++) {
+            var hay = false;
+            for (var n = 0; n < cex.medidores.length; n++) { if (cex.medidores[n].id === cin.medidores[m].id) hay = true; }
+            if (!hay) { cex.medidores.push(cin.medidores[m]); nuevos++; }
+          }
+        }
+      }
+      saveRoutes(routes);
+      renderHome();
+      alert(nuevos ? ('\u2705 Se agregaron ' + nuevos + ' usuarios' + (rutasNuevas ? ' (' + rutasNuevas + (rutasNuevas === 1 ? ' zona nueva' : ' zonas nuevas') + ')' : '') + '. Los ves en el mapa; toc\u00e1 un punto para ver los datos y c\u00f3mo llegar.') : 'No hab\u00eda nada nuevo: esos usuarios ya estaban cargados.');
+    };
+    rd.readAsText(f);
+  });
 
   // ---------- ficha del punto tocado en el mapa ----------
   var ptActual = null;

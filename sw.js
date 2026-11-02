@@ -1,4 +1,4 @@
-var CACHE_NAME = 'dpec-ue-v2';
+var CACHE_NAME = 'dpec-ue-v3';
 var TILES_CACHE = 'dpec-ue-tiles';   // mapa guardado: no se borra al actualizar la app
 var MAX_TILES = 2500;
 var FILES_TO_CACHE = ['./index.html', './manifest.json', './icon-192.png', './icon-512.png'];
