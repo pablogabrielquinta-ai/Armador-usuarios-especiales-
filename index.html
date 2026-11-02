@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Usuarios Especiales - DPEC</title>
+<title>Usuarios Especiales</title>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0f2b52">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -252,7 +252,7 @@
   <button class="back" id="btnBack">&larr;</button>
   <div class="titles">
     <h1 id="headerTitle"><img src="icon-192.png" alt="" style="width:26px;height:26px;border-radius:6px;vertical-align:-6px;margin-right:6px;">Usuarios Especiales</h1>
-    <div class="sub" id="headerSub">DPEC - Prefacturaci&oacute;n</div>
+    <div class="sub" id="headerSub">&nbsp;</div>
   </div>
   <div class="spacer24"></div>
 </header>
@@ -434,7 +434,7 @@
 
 <script>
 (function () {
-  var APP_VERSION = '3';   // mantener igual que CACHE_NAME en sw.js
+  var APP_VERSION = '4';   // mantener igual que CACHE_NAME en sw.js
   var STORAGE_KEY = 'dpec_ue_rutas_v1';
   var NOMBRE_KEY = 'dpec_ue_lecturista';
   function getLecturista() { try { return (localStorage.getItem(NOMBRE_KEY) || '').trim(); } catch (e) { return ''; } }
@@ -1251,7 +1251,7 @@
     document.getElementById('screenHome').classList.remove('hidden');
     document.getElementById('btnBack').style.display = 'none';
     document.getElementById('headerTitle').innerHTML = '<img src="icon-192.png" alt="" style="width:26px;height:26px;border-radius:6px;vertical-align:-6px;margin-right:6px;">Usuarios Especiales';
-    document.getElementById('headerSub').textContent = 'DPEC - Prefacturaci\u00f3n';
+    document.getElementById('headerSub').textContent = '\u00a0';
     renderHome();
   }
   document.getElementById('btnBack').addEventListener('click', volverHome);

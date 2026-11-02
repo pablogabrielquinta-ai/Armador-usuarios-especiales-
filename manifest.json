@@ -1,5 +1,5 @@
 {
-  "name": "Usuarios Especiales - DPEC",
+  "name": "Usuarios Especiales",
   "short_name": "Usuarios Esp.",
   "description": "Armado de recorrido de usuarios especiales: IC, medidor y módulo en orden, offline",
   "start_url": "./index.html",
